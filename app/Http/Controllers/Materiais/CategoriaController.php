@@ -104,7 +104,7 @@ class CategoriaController extends Controller
 
     /////////////////////////////////////////////
 
-    public function indexView()
+    public function view()
     {
         $categorias = Categoria::all();
         return view('materiais.categorias', compact('categorias'));
