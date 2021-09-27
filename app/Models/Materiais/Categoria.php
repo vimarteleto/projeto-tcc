@@ -13,6 +13,6 @@ class Categoria extends Model
 
     public function materiais()
     {
-        return $this->hasMany('Material');
+        return $this->hasMany(Material::class);
     }
 }

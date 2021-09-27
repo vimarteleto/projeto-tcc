@@ -13,6 +13,6 @@ class Material extends Model
 
     public function grupo()
     {
-        return $this->belongsTo('Categoria');
+        return $this->belongsTo(Categoria::class);
     }
 }

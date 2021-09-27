@@ -13,6 +13,6 @@ class Referencia extends Model
 
     public function linha()
     {
-        return $this->belongsTo('Linha');
+        return $this->belongsTo(Linha::class);
     }
 }

@@ -21,9 +21,8 @@ Route::get('/', function () {
 // categorias
 Route::get('/categorias', [CategoriaController::class, 'indexView']);
 Route::get('/categorias/excluir/{id}', [CategoriaController::class, 'destroy']);
-Route::get('/categorias/editar/{id}', [CategoriaController::class, 'edit']);
+Route::post('/categorias/editar/{id}', [CategoriaController::class, 'update']);
+// Route::get('/categorias/editar/{id}', [CategoriaController::class, 'edit']);
 // Route::post('/categorias/novo', [CategoriaController::class, 'create']);
-// Route::get('/categorias/excluir/{id}', [CategoriaController::class, 'destroy']);
-// Route::post('/categorias/{id}', [CategoriaController::class, 'update']);
 
 

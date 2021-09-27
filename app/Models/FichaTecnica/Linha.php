@@ -13,6 +13,6 @@ class Linha extends Model
 
     public function referencias()
     {
-        return $this->hasMany('Referencia');
+        return $this->hasMany(Referencia::class);
     }
 }

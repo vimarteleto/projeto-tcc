@@ -22,7 +22,7 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -36,10 +36,10 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
 
-        $categoria = Categoria::create([
+        Categoria::create([
             'nome' => $request->input('nome')
         ]);
-        return $categoria->toJson();
+        return redirect('/categorias');
     }
 
     /**
@@ -61,12 +61,12 @@ class CategoriaController extends Controller
      */
     public function edit($id)
     {
-        $categoria = Categoria::find($id);
-        if (isset($categoria)) {
-            return view('materiais.editarCategoria', compact('categoria'));
-        } else {
-            return redirect('/categorias');
-        }
+        // $categoria = Categoria::find($id);
+        // if (isset($categoria)) {
+        //     return view('materiais.editarCategoria', compact('categoria'));
+        // } else {
+        //     return redirect('/categorias');
+        // }
     }
 
     /**
@@ -80,7 +80,7 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
         if (isset($categoria)) {
-            $categoria->nome = $request->input('nomeCategoria');
+            $categoria->nome = $request->input('nome');
             $categoria->save();
         }
         return redirect('/categorias');

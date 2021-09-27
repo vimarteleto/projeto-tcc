@@ -22,11 +22,20 @@
                                 <td>{{$categoria->nome}}</td>
 
                                 <td>
-                                    <a href="/categorias/editar/{{$categoria->id}}"
-                                       class="btn btn-sm btn-primary">Editar</a>
 
-                                    <a href="/categorias/excluir/{{$categoria->id}}"
-                                       class="btn btn-sm btn-danger">Excluir</a>
+                                    <a class="btn btn-sm btn-primary" 
+                                       data-toggle="modal" 
+                                       data-target="#modal-edit-{{$categoria->id}}"
+                                    >
+                                       Editar
+                                   </a>
+
+                                    <a class="btn btn-sm btn-danger" 
+                                        data-toggle="modal" 
+                                        data-target="#modal-delete-{{$categoria->id}}"
+                                    >
+                                        Excluir
+                                    </a>
                                 </td>
                             </tr>
 
@@ -37,7 +46,7 @@
 
         </div>
         <div class="card-footer">
-            <button class="btn btn-sm btn-primary" role="button" onclick="novaCategoria()">Nova categoria</button>
+            <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-criar">Nova categoria</a>
         </div>
     </div>
 
@@ -69,7 +78,41 @@
     </div>
 
     {{-- modal de confirmacao de exclusao --}}
+    @foreach ($categorias as $categoria)
+
+    <div class="modal fade" id="modal-delete-{{$categoria->id}}" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:white">
+            <div class="modal-header">
+                <h5 class="modal-title">{{$categoria->nome}}</h5>
+            </div>          
+
+            @if (count($categoria->materiais) == 0)
+                <div class="modal-body">                
+                    Deseja realmente excluir a categoria {{$categoria->nome}}?
+                </div>
+            @else
+            <div class="modal-body">                
+                A categoria {{$categoria->nome}} possui {{count($categoria->materiais)}} materiais cadastrados, 
+                deseja realmente excluir?
+            </div>
+            @endif
+
+            <div class="modal-footer">
+                <a href="/categorias/excluir/{{$categoria->id}}">
+                    <button class="btn btn-sm btn-danger">Excluir</button>
+                </a>
+            </div>
+
+            </div>
+        </div>
+    </div>
     {{-- modal de confirmacao de edição --}}
+
+        
+    @endforeach
+
+
 
 
 @endsection
@@ -83,14 +126,35 @@
             }
         })
 
-        // modal de nova categoria
-        function novaCategoria() {
-            $(() => {
-                $('#id').val('')
-                $('#nome').val('')
-                $('#modal-criar').modal('show')
+        function criarCategoria() {
+            let categoria = {
+                nome: $('#nome').val(),
+            }
+
+            $.post('api/categorias', categoria, (data) => {
+                // let categoria = JSON.parse(data)
+                // console.log(categoria)
+                // let row = criarLinha(categoria)
+                // $('#tabelaCategorias>tbody').append(row)
+                window.location.reload()
             })
         }
+
+        $('#formCategoria').submit((event) => {
+            event.preventDefault()
+            criarCategoria()
+            $('#modal-criar').modal('hide')
+        })
+
+
+        // modal de nova categoria
+        // function novaCategoria() {
+        //     $(() => {
+        //         $('#id').val('')
+        //         $('#nome').val('')
+        //         $('#modal-criar').modal('show')
+        //     })
+        // }
 
         // carregando lista de itens para select
         // function carregarCategorias() {
@@ -102,20 +166,20 @@
         //     })
         // }
 
-        function criarLinha(categoria) {
-            return `<tr>
-                        <td>${categoria.id}</td>
-                        <td>${categoria.nome}</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary">Editar</button>
+        // function criarLinha(categoria) {
+        //     return `<tr>
+        //                 <td>${categoria.id}</td>
+        //                 <td>${categoria.nome}</td>
+        //                 <td>
+        //                     <button class="btn btn-sm btn-primary">Editar</button>
                             
 
-                            <a href="categorias/excluir/${categoria.id}" >
-                                <button class="btn btn-sm btn-danger">Excluir</button>
-                            </a>
-                        </td>
-                </tr>`
-        }
+        //                     <a href="categorias/excluir/${categoria.id}" >
+        //                         <button class="btn btn-sm btn-danger">Excluir</button>
+        //                     </a>
+        //                 </td>
+        //         </tr>`
+        // }
 
         // function carregarTabelaCategorias() {
         //     $.getJSON('api/categorias', (data) => {
@@ -126,24 +190,7 @@
         //     })
         // }
 
-        function criarCategoria() {
-            let categoria = {
-                nome: $('#nome').val(),
-            }
-
-            $.post('api/categorias', categoria, (data) => {
-                let categoria = JSON.parse(data)
-                console.log(categoria)
-                let row = criarLinha(categoria)
-                $('#tabelaCategorias>tbody').append(row)
-            })
-        }
-
-        $('#formCategoria').submit((event) => {
-            event.preventDefault()
-            criarCategoria()
-            $('#modal-criar').modal('hide')
-        })
+        
 
         // $(() => {
         //     // carregarCategorias();
