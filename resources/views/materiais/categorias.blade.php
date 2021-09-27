@@ -78,8 +78,6 @@
     </div>
 
     {{-- modal de confirmacao de exclusao --}}
-    @foreach ($categorias as $categoria)
-
     <div class="modal fade" id="modal-delete-{{$categoria->id}}" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color:white">
@@ -109,9 +107,9 @@
             </div>
         </div>
     </div>
-    {{-- modal de confirmacao de edição --}}
 
-    <div class="modal modal-edit" tabindex="-1" role="dialog" id="modal-edit-{{$categoria->id}}">
+    {{-- modal de edição --}}
+    <div class="modal modal-edit" tabindex="-1" role="dialog" id="modal-edit">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form id="formCategoriaEdit" class="form-horizontal">
@@ -119,12 +117,12 @@
                         <h5 class="modal-title">Editar categoria</h5>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="idEdit" value={{$categoria->id}} class="form-control">
+                        <input type="hidden" id="idEdit" class="form-control">
 
                         <div class="form-group">
                             <label for="nomeEdit" class="form-check-label">Categoria</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="nomeEdit" placeholder="Nome da categoria" value="{{$categoria->nome}}">
+                                <input type="text" class="form-control" id="nomeEdit" placeholder="Nome da categoria">
                             </div>
                         </div>
                     </div>
@@ -137,8 +135,7 @@
         </div>
     </div>
 
-        
-    @endforeach
+
 
 
 
@@ -173,31 +170,6 @@
             criarCategoria()
             $('#modal-criar').modal('hide')
         })
-
-
-        // EDICAO
-        
-        function editarCategoria() {
-            let categoria = {
-                id: $('#idEdit').val(),
-                nome: $('#nomeEdit').val(),
-            }
-            console.log(categoria)
-            $.post('api/categorias', categoria, (data) => {
-                // let categoria = JSON.parse(data)
-                // console.log(categoria)
-                // let row = criarLinha(categoria)
-                // $('#tabelaCategorias>tbody').append(row)
-                // window.location.reload()
-            })
-        }
-        
-        $('#formCategoriaEdit').submit((event) => {
-            event.preventDefault()
-            editarCategoria()
-            $('.modal-edit').modal('hide')
-        })
-
 
         // modal de nova categoria
         // function novaCategoria() {
