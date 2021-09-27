@@ -35,10 +35,17 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        if(isset($request->id)) {
+            $categoria = Categoria::find($request->id);
+            $categoria->nome = $request->nome;
+            $categoria->save();
 
-        Categoria::create([
-            'nome' => $request->input('nome')
-        ]);
+        } else {
+            Categoria::create([
+                'nome' => $request->nome
+            ]);
+        }
+
         return redirect('/categorias');
     }
 
@@ -78,12 +85,13 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $categoria = Categoria::find($id);
-        if (isset($categoria)) {
-            $categoria->nome = $request->input('nome');
-            $categoria->save();
-        }
-        return redirect('/categorias');
+        // dd($request);
+        // $categoria = Categoria::find($id);
+        // if (isset($categoria)) {
+        //     $categoria->nome = $request->input('nomeEdit');
+        //     $categoria->save();
+        // }
+        // return redirect('/categorias');
     }
 
     /**

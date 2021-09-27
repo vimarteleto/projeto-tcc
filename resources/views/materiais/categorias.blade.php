@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    {{-- modal de criar --}}
+    {{-- modal de criacao --}}
     <div class="modal" tabindex="-1" role="dialog" id="modal-criar">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -87,16 +87,18 @@
                 <h5 class="modal-title">{{$categoria->nome}}</h5>
             </div>          
 
-            @if (count($categoria->materiais) == 0)
-                <div class="modal-body">                
-                    Deseja realmente excluir a categoria {{$categoria->nome}}?
-                </div>
-            @else
             <div class="modal-body">                
+                @if (count($categoria->materiais) == 0)
+                    Deseja realmente excluir a categoria {{$categoria->nome}}?
+
+                @else
+            
+                    A categoria {{$categoria->nome}} possui {{count($categoria->materiais)}} materiais cadastrados, 
                 A categoria {{$categoria->nome}} possui {{count($categoria->materiais)}} materiais cadastrados, 
-                deseja realmente excluir?
+                    A categoria {{$categoria->nome}} possui {{count($categoria->materiais)}} materiais cadastrados, 
+                    deseja realmente excluir?
+                @endif
             </div>
-            @endif
 
             <div class="modal-footer">
                 <a href="/categorias/excluir/{{$categoria->id}}">
@@ -108,6 +110,32 @@
         </div>
     </div>
     {{-- modal de confirmacao de edição --}}
+
+    <div class="modal modal-edit" tabindex="-1" role="dialog" id="modal-edit-{{$categoria->id}}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="formCategoriaEdit" class="form-horizontal">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar categoria</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="idEdit" value={{$categoria->id}} class="form-control">
+
+                        <div class="form-group">
+                            <label for="nomeEdit" class="form-check-label">Categoria</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="nomeEdit" placeholder="Nome da categoria" value="{{$categoria->nome}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary btn-sm" type="submit">Salvar</button>
+                        <button class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
         
     @endforeach
@@ -144,6 +172,30 @@
             event.preventDefault()
             criarCategoria()
             $('#modal-criar').modal('hide')
+        })
+
+
+        // EDICAO
+        
+        function editarCategoria() {
+            let categoria = {
+                id: $('#idEdit').val(),
+                nome: $('#nomeEdit').val(),
+            }
+            console.log(categoria)
+            $.post('api/categorias', categoria, (data) => {
+                // let categoria = JSON.parse(data)
+                // console.log(categoria)
+                // let row = criarLinha(categoria)
+                // $('#tabelaCategorias>tbody').append(row)
+                // window.location.reload()
+            })
+        }
+        
+        $('#formCategoriaEdit').submit((event) => {
+            event.preventDefault()
+            editarCategoria()
+            $('.modal-edit').modal('hide')
         })
 
 
