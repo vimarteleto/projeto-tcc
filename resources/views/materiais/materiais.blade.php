@@ -354,3 +354,46 @@
         VERIFICAR EXCLUSAO EM CASCATA !!!
     
     --}}
+
+<script>
+function disableStatus(id){
+
+    var post_url = $(id).attr("action");
+    var request_method = $(id).attr("method");
+    var form_data = $(id).serialize();
+
+    $.ajax({
+
+        url : post_url,
+        type: request_method,
+        data : form_data
+
+    }).done(function(response){ 
+        console.log(response);
+    }).fail(function(response) {
+
+    });
+}
+
+<div class="custom-control custom-switch">
+
+    <form method="POST" 
+        id="formDisableStatus{{$interview->id}}" 
+        action="{{route('disableInterview',$interview->id)}}">
+
+            @CSRF 
+            @METHOD('PUT')
+
+        <input onclick="disableStatus(formDisableStatus{{$interview->id}})" 
+            type="checkbox" 
+            class="custom-control-input" 
+            id="switch{{$interview->id}}" 
+            @if($interview->status == 1) checked @endif>
+
+        <label class="custom-control-label" 
+            for="switch{{$interview->id}}"></label>
+
+    </form>
+
+</div>
+</script>
