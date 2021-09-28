@@ -35,6 +35,11 @@
                                        data-toggle="modal" 
                                        data-target="#modal-edit"
                                        data-item-id={{$material->id}}                                       
+                                       data-item-categoria={{$material->categoria->id}}                                       
+                                       data-item-nome="{{$material->nome}}"   
+                                       data-item-unidade={{$material->unidade->id}} 
+                                       data-item-preco="{{$material->preco}}"                                     
+                                       data-item-grade={{$material->grade ? $material->grade->id : ''}}                                     
                                     >
                                        Editar
                                    </a>
@@ -274,29 +279,30 @@
         $(".btn-modal-edit").on('click', function() {
             // capturando o valor de data-item-id
             let id = $(this).data('item-id')   
+            let categoria = $(this).data('item-categoria')   
+            let nome = $(this).data('item-nome')   
+            let unidade = $(this).data('item-unidade')   
+            let preco = $(this).data('item-preco')   
+            let grade = $(this).data('item-grade')   
 
             // passando o valor par ao input hidden       
-            $("#id-edit").val(id)            
+            $("#id-edit").val(id)       
+            $("#categoria-edit").val(categoria)       
+            $("#nome-edit").val(nome)       
+            $("#unidade-edit").val(unidade)       
+            $("#preco-edit").val(preco)       
+            $("#grade-edit").val(grade)       
 
-            // request de show() para retorno do item nos inputs do modal de edicao
-            $.getJSON(`materiais/${id}`, (data) => {
-                console.log(data)
 
-                $("#nome-edit").val(data.nome)
-                $("#preco-edit").val(data.preco)
-                $(`#categoria-edit option[value=${data.categoria_id}]`).attr('selected','selected')
-                $(`#unidade-edit option[value=${data.unidade_id}]`).attr('selected','selected')
-                $(`#grade-edit option[value=${data.grade_id ? data.grade_id : null}]`).attr('selected','selected')                
-                
-            })
+            
         })              
 
         // limpeza do selected
-        $('.modal-request').on('hidden.bs.modal', function () {       
-            $('#categoria-edit option:selected').removeAttr('selected');
-            $('#unidade-edit option:selected').removeAttr('selected');
-            $('#grade-edit option:selected').removeAttr('selected');
-        })
+        // $('.modal-request').on('hidden.bs.modal', function () {       
+        //     $('#categoria-edit option:selected').removeAttr('selected');
+        //     $('#unidade-edit option:selected').removeAttr('selected');
+        //     $('#grade-edit option:selected').removeAttr('selected');
+        // })
 
 
         ////////////////////////////////////////////////
@@ -342,5 +348,9 @@
         ALTERAR CAMPOS NO GET SHOW()
         ALTERAR CAMPOS NA LIMPEZA DOS SELECT
         ALTERAR ROTA NO METODO DE EXCLUSAO    
+
+        ////////
+
+        VERIFICAR EXCLUSAO EM CASCATA !!!
     
     --}}

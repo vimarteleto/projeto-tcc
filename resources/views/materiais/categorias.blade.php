@@ -27,6 +27,7 @@
                                        data-toggle="modal" 
                                        data-target="#modal-edit"
                                        data-item-id={{$categoria->id}}                                       
+                                       data-item-nome="{{$categoria->nome}}"                                    
                                     >
                                        Editar
                                    </a>
@@ -162,16 +163,20 @@
 
         $(".btn-modal-edit").on('click', function() {
             // capturando o valor de data-item-id
-            let id = $(this).data('item-id')   
+            let id = $(this).data('item-id') 
+            let nome = $(this).data('item-nome') 
 
             // passando o valor par ao input hidden       
             $("#id-edit").val(id)
+            
+            // demais inputs
+            $("#nome-edit").val(nome)
 
             // request de show() para retorno da categoria desejada
-            $.getJSON(`categorias/${id}`, (data) => {
-                // console.log(data.nome)
-                $("#nome-edit").val(data.nome)
-            })
+            // $.getJSON(`categorias/${id}`, (data) => {
+            //     // console.log(data.nome)
+            //     $("#nome-edit").val(data.nome)
+            // })
         })  
 
         // metodo de exclusao    

@@ -27,6 +27,8 @@
                                        data-toggle="modal" 
                                        data-target="#modal-edit"
                                        data-item-id={{$unidade->id}}                                       
+                                       data-item-nome="{{$unidade->nome}}"                                       
+                                       data-item-sigla="{{$unidade->sigla}}"                                   
                                     >
                                        Editar
                                    </a>
@@ -218,22 +220,28 @@
         // clique no botao editar
         $(".btn-modal-edit").on('click', function() {
             // capturando o valor de data-item-id
-            let id = $(this).data('item-id')   
+            let id = $(this).data('item-id')  
+            let nome = $(this).data('item-nome') 
+            let sigla = $(this).data('item-sigla')  
 
             // passando o valor par ao input hidden       
-            $("#id-edit").val(id)            
+            $("#id-edit").val(id)    
+
+            // demais inputs
+            $("#nome-edit").val(nome)        
+            $("#sigla-edit").val(sigla)        
 
             // request de show() para retorno do item nos inputs do modal de edicao
-            $.getJSON(`unidades/${id}`, (data) => {
-                console.log(data)
+            // $.getJSON(`unidades/${id}`, (data) => {
+            //     console.log(data)
 
-                $("#nome-edit").val(data.nome)
-                $("#sigla-edit").val(data.sigla)
-                // $(`#categoria-edit option[value=${data.categoria_id}]`).attr('selected','selected')
-                // $(`#unidade-edit option[value=${data.unidade_id}]`).attr('selected','selected')
-                // $(`#grade-edit option[value=${data.grade_id ? data.grade_id : null}]`).attr('selected','selected')                
+            //     $("#nome-edit").val(data.nome)
+            //     $("#sigla-edit").val(data.sigla)
+            //     // $(`#categoria-edit option[value=${data.categoria_id}]`).attr('selected','selected')
+            //     // $(`#unidade-edit option[value=${data.unidade_id}]`).attr('selected','selected')
+            //     // $(`#grade-edit option[value=${data.grade_id ? data.grade_id : null}]`).attr('selected','selected')                
                 
-            })
+            // })
         })              
 
         // limpeza do selected
@@ -287,5 +295,10 @@
         ALTERAR CAMPOS NO GET SHOW()
         ALTERAR CAMPOS NA LIMPEZA DOS SELECT
         ALTERAR ROTA NO METODO DE EXCLUSAO    
+
+
+        ////////////////
+
+        VERIFICAR EXCLUSAO EM CASCATA !!!
     
     --}}
