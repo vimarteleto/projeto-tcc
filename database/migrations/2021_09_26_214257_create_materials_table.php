@@ -23,8 +23,8 @@ class CreateMaterialsTable extends Migration
             $table->unsignedBigInteger('grade_id')->nullable();
 
             $table->foreign('categoria_id')->references('id')->on('categorias')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('unidade_id')->references('id')->on('unidades')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('grade_id')->references('id')->on('grades')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('unidade_id')->references('id')->on('unidades')->onUpdate('cascade');
+            $table->foreign('grade_id')->references('id')->on('grades')->onUpdate('cascade');
 
             $table->timestamps();
         });

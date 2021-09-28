@@ -52,4 +52,19 @@ class MateriaisController extends Controller
         $materiais = Material::with('categoria', 'unidade', 'grade')->orderBy('categoria_id')->get();
         return view('materiais.materiais', compact('materiais'));
     }
+
+    // alteracao de status
+    public function status($id)
+    {
+        $material = Material::find($id);
+
+        if ($material->status == 0){
+            $material->status = 1;
+        } else {
+            $material->status = 0;
+        }
+        $material->update();
+        
+        return 'Material inativado com sucesso!';
+    }
 }

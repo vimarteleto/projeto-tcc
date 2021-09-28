@@ -164,37 +164,6 @@
             }
         })
 
-        // carregamento das options
-        // $(document).ready(function() {
-
-        //     $.getJSON('categorias/index', (data) => {
-        //         for(let i = 0; i < data.length; i++) {
-        //             let option = `<option value="${data[i].id}">${data[i].nome}</option>`
-
-        //             // classe nos inputs select para o modal de criacao e edicao
-        //             $('.categoria').append(option)
-        //         }
-        //     })
-
-        //     $.getJSON('unidades/index', (data) => {
-        //         for(let i = 0; i < data.length; i++) {
-        //             let option = `<option value="${data[i].id}">${data[i].sigla}</option>`
-
-        //             $('.unidade').append(option)
-
-        //         }
-        //     })
-
-        //     $.getJSON('grades/index', (data) => {
-        //         for(let i = 0; i < data.length; i++) {
-        //             let option = `<option value="${data[i].id}">${data[i].nome}</option>`
-
-        //             $('.grade').append(option)
-
-        //         }
-        //     })
-        // })
-
         //////////////////////////////////////////////////////////
         
         // salvando novas categorias
@@ -231,26 +200,7 @@
             $("#nome-edit").val(nome)        
             $("#sigla-edit").val(sigla)        
 
-            // request de show() para retorno do item nos inputs do modal de edicao
-            // $.getJSON(`unidades/${id}`, (data) => {
-            //     console.log(data)
-
-            //     $("#nome-edit").val(data.nome)
-            //     $("#sigla-edit").val(data.sigla)
-            //     // $(`#categoria-edit option[value=${data.categoria_id}]`).attr('selected','selected')
-            //     // $(`#unidade-edit option[value=${data.unidade_id}]`).attr('selected','selected')
-            //     // $(`#grade-edit option[value=${data.grade_id ? data.grade_id : null}]`).attr('selected','selected')                
-                
-            // })
         })              
-
-        // limpeza do selected
-        // $('.modal-request').on('hidden.bs.modal', function () {       
-        //     $('#categoria-edit option:selected').removeAttr('selected');
-        //     $('#unidade-edit option:selected').removeAttr('selected');
-        //     $('#grade-edit option:selected').removeAttr('selected');
-        // })
-
 
         ////////////////////////////////////////////////
 
@@ -267,38 +217,3 @@
 
     </script>
 @endsection
-
-{{-- FLUXO DE CRIACAO DOS CRUDS BASICOS
-    
-        ADICIONAR TH
-        ADICIONAR TD
-        ALTERAR TEXTO BOTAO DE CRIACAO
-        ALTERAR MODAL DE CRIACAO:
-            ALTERAR TITULO
-            ALTERAR ATRIBUTOS: FOR, NAME, ID E CLASS COM NOME DO INPUT
-
-        COPIAR O MODAL DE CRIACAO PARA O MODAL DE EDICAO:
-            ALTERAR ACTION
-            ALTERAR TITULO
-            DESCOMENTAR O INPUT HIDDEN
-            ALTERAR NAME PARA ITENS QUE SAO FK, COLOCANDO O EXEMPLO_ID
-            ALTERAR ID COM EXEMPLO-EDIT DE TODOS
-            MATER O FOR E A CLASSE NORMAL
-
-        ALTERAR A TODA NO MODAL DE EXCLUSAO
-
-        //////
-
-        SCRIPTS
-        GETS DE CARREGAMENTO 
-        ALTERAR O OBJETO NO POST DE SUBMIT DE CRIACAO
-        ALTERAR CAMPOS NO GET SHOW()
-        ALTERAR CAMPOS NA LIMPEZA DOS SELECT
-        ALTERAR ROTA NO METODO DE EXCLUSAO    
-
-
-        ////////////////
-
-        VERIFICAR EXCLUSAO EM CASCATA !!!
-    
-    --}}

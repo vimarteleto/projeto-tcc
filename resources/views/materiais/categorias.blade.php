@@ -172,11 +172,6 @@
             // demais inputs
             $("#nome-edit").val(nome)
 
-            // request de show() para retorno da categoria desejada
-            // $.getJSON(`categorias/${id}`, (data) => {
-            //     // console.log(data.nome)
-            //     $("#nome-edit").val(data.nome)
-            // })
         })  
 
         // metodo de exclusao    
@@ -193,19 +188,6 @@
 
             
         })
-
-
-
-        // carregando lista de itens para select
-        // function carregarCategorias() {
-        //     $.getJSON('api/categorias', (data) => {
-        //         for(let i = 0; i < data.length; i++) {
-        //             let option = `<option value="${data[i].id}">${data[i].nome}</option>`
-        //             $('#categoriaCategoria').append(option)
-        //         }
-        //     })
-        // }
-
 
     </script>
 @endsection

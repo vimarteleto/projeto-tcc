@@ -33,6 +33,7 @@ Route::get('/categorias/{id}', [CategoriaController::class, 'show']); // busca u
 Route::get('/materiais', [MateriaisController::class, 'view']);
 Route::get('/materiais/index', [MateriaisController::class, 'index']);
 Route::post('/materiais', [MateriaisController::class, 'store']);
+Route::post('/materiais/status/{id}', [MateriaisController::class, 'status']);
 // Route::put('/materiais', [MateriaisController::class, 'update']);
 Route::get('/materiais/excluir', [MateriaisController::class, 'destroy']);
 Route::get('/materiais/{id}', [MateriaisController::class, 'show']);

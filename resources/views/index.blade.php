@@ -25,9 +25,9 @@
                 {{-- materiais --}}
                 <div class="card border border-primary">
                     <div class="card-body">
-                        <h5 class="card-title">Cadastro de materiais</h5>
-                        <p class="card-text">Cadastro de materiais</p>
-                        <a href="/materiais" class="btn btn-primary">Cadastre os materiais</a>
+                        <h5 class="card-title">Cadastro</h5>
+                        <p class="card-text">Cadastro</p>
+                        <a href="/#" class="btn btn-primary">Cadastre</a>
                     </div>
                 </div>
 

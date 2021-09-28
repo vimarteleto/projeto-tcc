@@ -14,8 +14,8 @@
                             <th>Nome</th>
                             <th>Unidade</th>
                             <th>Preço</th>
-                            <th>Status</th>
                             <th>Grade</th>
+                            <th>Status</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -28,8 +28,21 @@
                                 <td>{{$material->nome}}</td>
                                 <td>{{$material->unidade->sigla}}</td>
                                 <td>R$ {{$material->preco}}</td>
-                                <td>{{$material->status == 1 ? 'Ativo' : 'Inativo'}}</td>
                                 <td>{{$material->grade ? $material->grade->nome : '-'}}</td>
+
+                                <td>
+                                    <div class="custom-control custom-switch">
+                                            <input 
+                                                data-item-switch={{$material->id}} 
+                                                type="checkbox" 
+                                                class="custom-control-input" 
+                                                id="switch{{$material->id}}"
+                                                {{$material->status == 1 ? 'checked' : ''}}
+                                            >                                    
+                                            <label class="custom-control-label" for="switch{{$material->id}}"></label>
+                                    </div>
+                                </td>
+                                
                                 <td>
                                     <a class="btn btn-sm btn-primary btn-modal-edit" 
                                        data-toggle="modal" 
@@ -222,7 +235,7 @@
             }
         })
 
-        // carregamento das options
+        // carregamento das options via request
         $(document).ready(function() {
 
             $.getJSON('categorias/index', (data) => {
@@ -291,19 +304,9 @@
             $("#nome-edit").val(nome)       
             $("#unidade-edit").val(unidade)       
             $("#preco-edit").val(preco)       
-            $("#grade-edit").val(grade)       
+            $("#grade-edit").val(grade)     
 
-
-            
-        })              
-
-        // limpeza do selected
-        // $('.modal-request').on('hidden.bs.modal', function () {       
-        //     $('#categoria-edit option:selected').removeAttr('selected');
-        //     $('#unidade-edit option:selected').removeAttr('selected');
-        //     $('#grade-edit option:selected').removeAttr('selected');
-        // })
-
+        })             
 
         ////////////////////////////////////////////////
 
@@ -318,100 +321,17 @@
             })            
         })
 
+        ////////////////////////////////////////////////
+
+        // inativacao via switch
+        $(".custom-control-input").on('click', function() {
+            let id = $(this).data('item-switch')
+            console.log(id)
+
+            $.post(`materiais/status/${id}`, (data) => {
+                console.log(data)
+            })
+        })
+
     </script>
 @endsection
-
-{{-- FLUXO DE CRIACAO DOS CRUDS BASICOS
-    
-        ADICIONAR TH
-        ADICIONAR TD
-        ALTERAR TEXTO BOTAO DE CRIACAO
-        ALTERAR MODAL DE CRIACAO:
-            ALTERAR TITULO
-            ALTERAR ATRIBUTOS: FOR, NAME, ID E CLASS COM NOME DO INPUT
-
-        COPIAR O MODAL DE CRIACAO PARA O MODAL DE EDICAO:
-            ALTERAR ACTION
-            ALTERAR TITULO
-            DESCOMENTAR O INPUT HIDDEN
-            ALTERAR NAME PARA ITENS QUE SAO FK, COLOCANDO O EXEMPLO_ID
-            ALTERAR ID COM EXEMPLO-EDIT DE TODOS
-            MATER O FOR E A CLASSE NORMAL
-
-        ALTERAR A TODA NO MODAL DE EXCLUSAO
-
-        //////
-
-        SCRIPTS
-        GETS DE CARREGAMENTO 
-        ALTERAR O OBJETO NO POST DE SUBMIT DE CRIACAO
-        ALTERAR CAMPOS NO GET SHOW()
-        ALTERAR CAMPOS NA LIMPEZA DOS SELECT
-        ALTERAR ROTA NO METODO DE EXCLUSAO    
-
-        ////////
-
-        VERIFICAR EXCLUSAO EM CASCATA !!!
-    
-    --}}
-
-<script>
-// FUNCAO
-function disableStatus(id){
-
-    var post_url = $(id).attr("action");
-    var request_method = $(id).attr("method");
-    var form_data = $(id).serialize();
-
-    $.ajax({
-
-        url : post_url,
-        type: request_method,
-        data : form_data
-
-    }).done(function(response){ 
-        console.log(response);
-    }).fail(function(response) {
-
-    });
-}
-
-// CONTROLLER
-
-public function disableInterview($interview)
-{
-    if ($interview->status == 0){
-        $interview->status = 1;
-    } else {
-        $interview->status = 0;
-    }
-    $interview->update();   
-    return true;         
-}
-
-// ELEMENTO
-<td class="espacoTD">
-    <div class="custom-control custom-switch">
-
-        <form method="POST" 
-                id="formDisableStatus{{$interview->id}}" 
-                action="{{route('disableInterview',$interview->id)}}">
-
-                @CSRF 
-                @METHOD('PUT')
-
-            <input onclick="disableStatus(formDisableStatus{{$interview->id}})" 
-                    type="checkbox" 
-                    class="custom-control-input" 
-                    id="switch{{$interview->id}}" 
-                    @if($interview->status == 1) checked @endif>
-
-            <label class="custom-control-label" 
-                    for="switch{{$interview->id}}"></label>
-
-        </form>
-
-    </div>
-</td>
-
-</script>
