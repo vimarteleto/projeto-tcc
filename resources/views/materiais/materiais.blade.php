@@ -15,6 +15,7 @@
                             <th>Unidade</th>
                             <th>Preço</th>
                             <th>Status</th>
+                            <th>Grade</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -28,6 +29,7 @@
                                 <td>{{$material->unidade->sigla}}</td>
                                 <td>R$ {{$material->preco}}</td>
                                 <td>{{$material->status == 1 ? 'Ativo' : 'Inativo'}}</td>
+                                <td>{{$material->grade ? $material->grade->nome : '-'}}</td>
                                 <td>
                                     <a class="btn btn-sm btn-primary btn-modal-edit" 
                                        data-toggle="modal" 
@@ -121,9 +123,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form action="/materiais" method="POST" id="form-edit" class="form-horizontal">
-                    @csrf
-                    @method('PUT')
-                    
+                    @csrf                    
                     <div class="modal-header">
                         <h5 class="modal-title">Editar categoria</h5>
                     </div>
@@ -315,7 +315,7 @@
     </script>
 @endsection
 
-{{-- FLUXO 
+{{-- FLUXO DE CRIACAO DOS CRUDS BASICOS
     
         ADICIONAR TH
         ADICIONAR TD
@@ -341,14 +341,6 @@
         ALTERAR O OBJETO NO POST DE SUBMIT DE CRIACAO
         ALTERAR CAMPOS NO GET SHOW()
         ALTERAR CAMPOS NA LIMPEZA DOS SELECT
-        ALTERAR ROTA NO METODO DE EXCLUSAO
-
-
-    
-    
-    
-    
-    
-    
+        ALTERAR ROTA NO METODO DE EXCLUSAO    
     
     --}}

@@ -18,14 +18,11 @@ class UnidadeController extends Controller
     public function store(Request $request)
     {
         if(isset($request->id)) {
-            $unidade = Unidade::find($request->id);
-            $unidade->nome = $request->nome;
-            $unidade->save();
+            $material = Unidade::find($request->id);
+            $material->update($request->all());
 
         } else {
-            Unidade::create([
-                'nome' => $request->nome
-            ]);
+            Unidade::create($request->all());
         }
         
         return redirect('/unidades');
@@ -35,16 +32,6 @@ class UnidadeController extends Controller
     {
         $unidade = Unidade::find($id);
         return $unidade->toJson();  
-    }
-
-    public function update(Request $request)
-    {
-        $unidade = Unidade::find($request->id);
-        if (isset($unidade)) {
-            $unidade->nome = $request->nome;
-            $unidade->save();
-        }
-        return redirect('/unidades');
     }
 
     public function destroy(Request $request)

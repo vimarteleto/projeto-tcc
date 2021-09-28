@@ -111,7 +111,6 @@
             <div class="modal-content">
                 <form action="/categorias" method="POST" id="form-categoria-edit" class="form-horizontal">
                     @csrf
-                    @method('PUT')
                     
                     <div class="modal-header">
                         <h5 class="modal-title">Editar categoria</h5>

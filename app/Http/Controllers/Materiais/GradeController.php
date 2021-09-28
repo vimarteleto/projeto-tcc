@@ -18,14 +18,11 @@ class GradeController extends Controller
     public function store(Request $request)
     {
         if(isset($request->id)) {
-            $grade = Grade::find($request->id);
-            $grade->nome = $request->nome;
-            $grade->save();
+            $material = Grade::find($request->id);
+            $material->update($request->all());
 
         } else {
-            Grade::create([
-                'nome' => $request->nome
-            ]);
+            Grade::create($request->all());
         }
         
         return redirect('/grades');
@@ -37,15 +34,6 @@ class GradeController extends Controller
         return $grade->toJson();  
     }
 
-    public function update(Request $request)
-    {
-        $grade = Grade::find($request->id);
-        if (isset($grade)) {
-            $grade->nome = $request->nome;
-            $grade->save();
-        }
-        return redirect('/grades');
-    }
 
     public function destroy(Request $request)
     {

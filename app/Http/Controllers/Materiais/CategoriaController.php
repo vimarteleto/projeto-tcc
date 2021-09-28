@@ -19,13 +19,10 @@ class CategoriaController extends Controller
     {
         if(isset($request->id)) {
             $categoria = Categoria::find($request->id);
-            $categoria->nome = $request->nome;
-            $categoria->save();
+            $categoria->update($request->all());
 
         } else {
-            Categoria::create([
-                'nome' => $request->nome
-            ]);
+            Categoria::create($request->all());
         }
         
         return redirect('/categorias');
@@ -35,16 +32,6 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
         return $categoria->toJson();  
-    }
-
-    public function update(Request $request)
-    {
-        $categoria = Categoria::find($request->id);
-        if (isset($categoria)) {
-            $categoria->nome = $request->nome;
-            $categoria->save();
-        }
-        return redirect('/categorias');
     }
 
     public function destroy(Request $request)
