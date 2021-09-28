@@ -18,8 +18,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{$current == "produtos" ? 'active' : ''}}"
-                       aria-current="page" href="/produtos">Produtos</a>
+                    <a class="nav-link {{$current == "materiais" ? 'active' : ''}}"
+                       aria-current="page" href="/materiais">Materiais</a>
                 </li>
 
             </ul>

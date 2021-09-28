@@ -1,4 +1,4 @@
-@extends('layouts.app', ['current' => 'categoria'])
+@extends('layouts.app', ['current' => 'categorias'])
 
 @section('body')
 
@@ -23,16 +23,18 @@
 
                                 <td>
 
-                                    <a class="btn btn-sm btn-primary" 
+                                    <a class="btn btn-sm btn-primary btn-modal-edit" 
                                        data-toggle="modal" 
-                                       data-target="#modal-edit-{{$categoria->id}}"
+                                       data-target="#modal-edit"
+                                       data-item-id={{$categoria->id}}                                       
                                     >
                                        Editar
                                    </a>
 
-                                    <a class="btn btn-sm btn-danger" 
+                                    <a class="btn btn-sm btn-danger btn-modal-delete" 
                                         data-toggle="modal" 
-                                        data-target="#modal-delete-{{$categoria->id}}"
+                                        data-target="#modal-delete"
+                                        data-item-id={{$categoria->id}}
                                     >
                                         Excluir
                                     </a>
@@ -54,12 +56,12 @@
     <div class="modal" tabindex="-1" role="dialog" id="modal-criar">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="formCategoria" class="form-horizontal">
+                <form id="form-categoria" class="form-horizontal">
                     <div class="modal-header">
                         <h5 class="modal-title">Nova categoria</h5>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="id" class="form-control">
+                        {{-- <input type="hidden" id="id" class="form-control"> --}}
 
                         <div class="form-group">
                             <label for="nome" class="form-check-label">Categoria</label>
@@ -77,56 +79,54 @@
         </div>
     </div>
 
-    {{-- modal de confirmacao de exclusao --}}
-    @foreach ($categorias as $categoria)
 
-    <div class="modal fade" id="modal-delete-{{$categoria->id}}" tabindex="-1" role="dialog">
+    {{-- REFATORAR PARA FORA DO LOOP --}}
+    {{-- modal de confirmacao de exclusao --}}
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color:white">
+            <form action="categorias/excluir" id="form-categoria" class="form-horizontal">
             <div class="modal-header">
-                <h5 class="modal-title">{{$categoria->nome}}</h5>
+                <h5 class="modal-title"></h5>
             </div>          
 
             <div class="modal-body">                
-                @if (count($categoria->materiais) == 0)
-                    Deseja realmente excluir a categoria {{$categoria->nome}}?
-
-                @else
-            
-                    A categoria {{$categoria->nome}} possui {{count($categoria->materiais)}} materiais cadastrados, 
-                A categoria {{$categoria->nome}} possui {{count($categoria->materiais)}} materiais cadastrados, 
-                    A categoria {{$categoria->nome}} possui {{count($categoria->materiais)}} materiais cadastrados, 
-                    deseja realmente excluir?
-                @endif
+                Deseja realmente excluir?
+                <input name="id" type="hidden" id="id-delete" class="form-control">
             </div>
 
             <div class="modal-footer">
-                <a href="/categorias/excluir/{{$categoria->id}}">
+                {{-- <a href="/categorias/excluir"> --}}
                     <button class="btn btn-sm btn-danger">Excluir</button>
-                </a>
+                {{-- </a> --}}
             </div>
-
+            </form>
             </div>
         </div>
     </div>
-    {{-- modal de confirmacao de edição --}}
 
-    <div class="modal modal-edit" tabindex="-1" role="dialog" id="modal-edit-{{$categoria->id}}">
+    {{-- modal de edição --}}
+    <div class="modal modal-edit" tabindex="-1" role="dialog" id="modal-edit">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="formCategoriaEdit" class="form-horizontal">
+                <form action="/categorias" method="POST" id="form-categoria-edit" class="form-horizontal">
+                    @csrf
+                    @method('PUT')
+                    
                     <div class="modal-header">
                         <h5 class="modal-title">Editar categoria</h5>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="idEdit" value={{$categoria->id}} class="form-control">
+
+                        <input name="id" type="hidden" id="id-edit" class="form-control">
 
                         <div class="form-group">
-                            <label for="nomeEdit" class="form-check-label">Categoria</label>
+                            <label for="nome" class="form-check-label">Categoria</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="nomeEdit" placeholder="Nome da categoria" value="{{$categoria->nome}}">
+                                <input name="nome" type="text" class="form-control" id="nome-edit" placeholder="Nome da categoria">
                             </div>
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary btn-sm" type="submit">Salvar</button>
@@ -137,8 +137,7 @@
         </div>
     </div>
 
-        
-    @endforeach
+
 
 
 
@@ -148,65 +147,57 @@
 @section('javascript')
     <script type="text/javascript">
 
+        // setup ajax
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': "{{csrf_token()}}"
             }
         })
 
-        function criarCategoria() {
+        // salvando novas categorias
+        $('#form-categoria').submit((event) => {
+            event.preventDefault()
             let categoria = {
                 nome: $('#nome').val(),
             }
 
-            $.post('api/categorias', categoria, (data) => {
-                // let categoria = JSON.parse(data)
-                // console.log(categoria)
-                // let row = criarLinha(categoria)
-                // $('#tabelaCategorias>tbody').append(row)
+            $.post('categorias', categoria, (data) => {
                 window.location.reload()
             })
-        }
-
-        $('#formCategoria').submit((event) => {
-            event.preventDefault()
-            criarCategoria()
             $('#modal-criar').modal('hide')
         })
 
 
-        // EDICAO
-        
-        function editarCategoria() {
-            let categoria = {
-                id: $('#idEdit').val(),
-                nome: $('#nomeEdit').val(),
-            }
-            console.log(categoria)
-            $.post('api/categorias', categoria, (data) => {
-                // let categoria = JSON.parse(data)
-                // console.log(categoria)
-                // let row = criarLinha(categoria)
-                // $('#tabelaCategorias>tbody').append(row)
-                // window.location.reload()
+        $(".btn-modal-edit").on('click', function() {
+            // capturando o valor de data-item-id
+            let id = $(this).data('item-id')   
+
+            // passando o valor par ao input hidden       
+            $("#id-edit").val(id)
+
+            // request de show() para retorno da categoria desejada
+            $.getJSON(`categorias/${id}`, (data) => {
+                // console.log(data.nome)
+                $("#nome-edit").val(data.nome)
             })
-        }
-        
-        $('#formCategoriaEdit').submit((event) => {
-            event.preventDefault()
-            editarCategoria()
-            $('.modal-edit').modal('hide')
+        })  
+
+        // metodo de exclusao    
+        $(".btn-modal-delete").on('click', function() {
+            let id = $(this).data('item-id') 
+            $("#id-delete").val(id) 
+            // console.log(id)
+
+            $.getJSON(`categorias/${id}`, (data) => {
+                console.log(data.nome)
+                $(".modal-title").text(data.nome)
+            })
+
+
+            
         })
 
 
-        // modal de nova categoria
-        // function novaCategoria() {
-        //     $(() => {
-        //         $('#id').val('')
-        //         $('#nome').val('')
-        //         $('#modal-criar').modal('show')
-        //     })
-        // }
 
         // carregando lista de itens para select
         // function carregarCategorias() {
@@ -217,37 +208,6 @@
         //         }
         //     })
         // }
-
-        // function criarLinha(categoria) {
-        //     return `<tr>
-        //                 <td>${categoria.id}</td>
-        //                 <td>${categoria.nome}</td>
-        //                 <td>
-        //                     <button class="btn btn-sm btn-primary">Editar</button>
-                            
-
-        //                     <a href="categorias/excluir/${categoria.id}" >
-        //                         <button class="btn btn-sm btn-danger">Excluir</button>
-        //                     </a>
-        //                 </td>
-        //         </tr>`
-        // }
-
-        // function carregarTabelaCategorias() {
-        //     $.getJSON('api/categorias', (data) => {
-        //         for(let i = 0; i < data.length; i++) {
-        //             let row = criarLinha(data[i])
-        //             $('#tabelaCategorias>tbody').append(row)
-        //         }
-        //     })
-        // }
-
-        
-
-        // $(() => {
-        //     // carregarCategorias();
-        //     carregarTabelaCategorias();
-        // })
 
 
     </script>

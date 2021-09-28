@@ -17,7 +17,7 @@ class CreateMaterialsTable extends Migration
             $table->id();
             $table->string('nome');
             $table->float('preco', 6, 2);
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->unsignedBigInteger('categoria_id');
             $table->unsignedBigInteger('unidade_id');
             $table->unsignedBigInteger('grade_id')->nullable();

@@ -16,7 +16,7 @@ class CreateLinhasTable extends Migration
         Schema::create('linhas', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
 
             $table->timestamps();
         });
