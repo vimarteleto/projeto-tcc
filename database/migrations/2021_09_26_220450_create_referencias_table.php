@@ -16,7 +16,7 @@ class CreateReferenciasTable extends Migration
         Schema::create('referencias', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->unsignedBigInteger('linha_id');
 
             $table->foreign('linha_id')->references('id')->on('linhas')->onUpdate('cascade')->onDelete('cascade');

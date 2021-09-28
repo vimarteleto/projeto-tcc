@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/categorias', [CategoriaController::class, 'store']);
+// Route::post('/categorias', [CategoriaController::class, 'store']);
+// Route::resource('/categorias', CategoriaController::class);
 

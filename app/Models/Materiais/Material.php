@@ -11,8 +11,18 @@ class Material extends Model
 
     protected $guarded = [];
 
-    public function grupo()
+    public function categoria()
     {
         return $this->belongsTo(Categoria::class);
+    }
+
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class);
+    }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
     }
 }
