@@ -77,33 +77,7 @@
                 </form>
             </div>
         </div>
-    </div>
-
-
-    {{-- REFATORAR PARA FORA DO LOOP --}}
-    {{-- modal de confirmacao de exclusao --}}
-    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color:white">
-            <form action="categorias/excluir" id="form-categoria" class="form-horizontal">
-            <div class="modal-header">
-                <h5 class="modal-title"></h5>
-            </div>          
-
-            <div class="modal-body">                
-                Deseja realmente excluir?
-                <input name="id" type="hidden" id="id-delete" class="form-control">
-            </div>
-
-            <div class="modal-footer">
-                {{-- <a href="/categorias/excluir"> --}}
-                    <button class="btn btn-sm btn-danger">Excluir</button>
-                {{-- </a> --}}
-            </div>
-            </form>
-            </div>
-        </div>
-    </div>
+    </div>    
 
     {{-- modal de edição --}}
     <div class="modal modal-edit" tabindex="-1" role="dialog" id="modal-edit">
@@ -136,10 +110,29 @@
         </div>
     </div>
 
+    {{-- modal de confirmacao de exclusao --}}
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:white">
+            <form action="categorias/excluir" id="form-categoria" class="form-horizontal">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>          
 
+            <div class="modal-body">                
+                Deseja realmente excluir?
+                <input name="id" type="hidden" id="id-delete" class="form-control">
+            </div>
 
-
-
+            <div class="modal-footer">
+                {{-- <a href="/categorias/excluir"> --}}
+                    <button class="btn btn-sm btn-danger">Excluir</button>
+                {{-- </a> --}}
+            </div>
+            </form>
+            </div>
+        </div>
+    </div>
 
 @endsection
 

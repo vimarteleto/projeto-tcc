@@ -18,8 +18,8 @@ class UnidadeController extends Controller
     public function store(Request $request)
     {
         if(isset($request->id)) {
-            $material = Unidade::find($request->id);
-            $material->update($request->all());
+            $unidade = Unidade::find($request->id);
+            $unidade->update($request->all());
 
         } else {
             Unidade::create($request->all());

@@ -1,40 +1,32 @@
-@extends('layouts.app', ['current' => 'materiais'])
+@extends('layouts.app', ['current' => 'unidades'])
 
 @section('body')
 
     <div class="card border">
         <div class="card-body">
-            <h5 class="card-title">Cadastro de materiais</h5>
+            <h5 class="card-title">Cadastro de unidades</h5>
 
                 <table class="table table-ordered table-hover">
                     <thead>
                         <tr>
                             <th>Cógido</th>
-                            <th>Categoria</th>
                             <th>Nome</th>
-                            <th>Unidade</th>
-                            <th>Preço</th>
-                            <th>Status</th>
-                            <th>Grade</th>
+                            <th>Sigla</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>            
                         
-                        @foreach($materiais as $material)
+                        @foreach($unidades as $unidade)
                             <tr>
-                                <td>{{$material->id}}</td>
-                                <td>{{$material->categoria->nome}}</td>
-                                <td>{{$material->nome}}</td>
-                                <td>{{$material->unidade->sigla}}</td>
-                                <td>R$ {{$material->preco}}</td>
-                                <td>{{$material->status == 1 ? 'Ativo' : 'Inativo'}}</td>
-                                <td>{{$material->grade ? $material->grade->nome : '-'}}</td>
+                                <td>{{$unidade->id}}</td>
+                                <td>{{$unidade->nome}}</td>
+                                <td>{{$unidade->sigla}}</td>
                                 <td>
                                     <a class="btn btn-sm btn-primary btn-modal-edit" 
                                        data-toggle="modal" 
                                        data-target="#modal-edit"
-                                       data-item-id={{$material->id}}                                       
+                                       data-item-id={{$unidade->id}}                                       
                                     >
                                        Editar
                                    </a>
@@ -42,7 +34,7 @@
                                     <a class="btn btn-sm btn-danger btn-modal-delete" 
                                         data-toggle="modal" 
                                         data-target="#modal-delete"
-                                        data-item-id={{$material->id}}
+                                        data-item-id={{$unidade->id}}
                                     >
                                         Excluir
                                     </a>
@@ -55,7 +47,7 @@
 
         </div>
         <div class="card-footer">
-            <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-criar">Novo material</a>
+            <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-criar">Nova unidade</a>
         </div>
     </div>
 
@@ -65,45 +57,23 @@
             <div class="modal-content">
                 <form id="form-store" class="form-horizontal">
                     <div class="modal-header">
-                        <h5 class="modal-title">Novo material</h5>
+                        <h5 class="modal-title">Nova unidade</h5>
                     </div>
                     <div class="modal-body">
-                        {{-- <input type="hidden" id="id-edit" name="id" class="form-control">   --}}
-                        <div class="form-group">
-                            <label for="categoria" class="form-check-label">Categoria</label>
-                            <div class="input-group">
-                                <select name="categoria" id="categoria" class="form-control categoria"></select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="nome" class="form-check-label">Material</label>
-                            <div class="input-group">
-                                <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome do material">
-                            </div>
-                        </div>
+                        {{-- <input type="hidden" id="id-edit" name="id" class="form-control">                          --}}
 
                         <div class="row">
                             <div class="col">
-                                <label for="grade" class="form-check-label">Grade</label>
+                                <label for="nome" class="form-check-label">Unidade</label>
                                 <div class="input-group">
-                                    <select name="grade" id="grade" class="form-control grade">
-                                        <option value="">-</option>
-                                    </select>
+                                    <input name="nome" id="nome" class="form-control nome" placeholder="Nome da unidade">
                                 </div>
                             </div>
 
                             <div class="col">
-                                <label for="unidade" class="form-check-label">Unidade</label>
+                                <label for="sigla" class="form-check-label">Sigla</label>
                                 <div class="input-group">
-                                    <select name="unidade" id="unidade" class="form-control unidade"></select>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <label for="preco" class="form-check-label">Preço</label>
-                                <div class="input-group">
-                                    <input name="preco" type="number" class="form-control" id="preco">
+                                    <input name="sigla" type="text" class="form-control" id="sigla" placeholder="Sigla da unidade">
                                 </div>
                             </div>
                         </div>
@@ -122,53 +92,28 @@
     <div class="modal modal-edit modal-request" tabindex="-1" role="dialog" id="modal-edit">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="/materiais" method="POST" id="form-edit" class="form-horizontal">
+                <form action="/unidades" method="POST" id="form-edit" class="form-horizontal">
                     @csrf                    
                     <div class="modal-header">
-                        <h5 class="modal-title">Editar categoria</h5>
+                        <h5 class="modal-title">Editar unidade</h5>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="id-edit" name="id" class="form-control">   
-
-                        <div class="form-group">
-                            <label for="categoria" class="form-check-label">Categoria</label>
-                            <div class="input-group">
-                                <select name="categoria_id" id="categoria-edit" class="form-control categoria"></select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="nome" class="form-check-label">Material</label>
-                            <div class="input-group">
-                                <input name="nome" type="text" class="form-control" id="nome-edit" placeholder="Nome da categoria">
-                            </div>
-                        </div>
+                        <input type="hidden" id="id-edit" name="id" class="form-control">                        
 
                         <div class="row">
-
                             <div class="col">
-                                <label for="grade" class="form-check-label">Grade</label>
+                                <label for="nome" class="form-check-label">Unidade</label>
                                 <div class="input-group">
-                                    <select name="grade_id" id="grade-edit" class="form-control grade">
-                                        <option value="">-</option>
-                                    </select>
+                                    <input name="nome" id="nome-edit" class="form-control nome" placeholder="Nome da unidade">
                                 </div>
                             </div>
 
                             <div class="col">
-                                <label for="unidade" class="form-check-label">Unidade</label>
+                                <label for="sigla" class="form-check-label">Sigla</label>
                                 <div class="input-group">
-                                    <select name="unidade_id" id="unidade-edit" class="form-control unidade"></select>
+                                    <input name="sigla" type="text" class="form-control" id="sigla-edit" placeholder="Sigla da unidade">
                                 </div>
                             </div>
-
-                            <div class="col">
-                                <label for="preco" class="form-check-label">Preço</label>
-                                <div class="input-group">
-                                    <input name="preco" type="number" class="form-control" id="preco-edit">
-                                </div>
-                            </div>
-
                         </div>
                         
                     </div>
@@ -185,7 +130,7 @@
     <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color:white">
-            <form action="materiais/excluir" class="form-horizontal">
+            <form action="unidades/excluir" id="form-categoria" class="form-horizontal">
             <div class="modal-header">
                 <h5 class="modal-title"></h5>
             </div>          
@@ -218,51 +163,51 @@
         })
 
         // carregamento das options
-        $(document).ready(function() {
+        // $(document).ready(function() {
 
-            $.getJSON('categorias/index', (data) => {
-                for(let i = 0; i < data.length; i++) {
-                    let option = `<option value="${data[i].id}">${data[i].nome}</option>`
+        //     $.getJSON('categorias/index', (data) => {
+        //         for(let i = 0; i < data.length; i++) {
+        //             let option = `<option value="${data[i].id}">${data[i].nome}</option>`
 
-                    // classe nos inputs select para o modal de criacao e edicao
-                    $('.categoria').append(option)
-                }
-            })
+        //             // classe nos inputs select para o modal de criacao e edicao
+        //             $('.categoria').append(option)
+        //         }
+        //     })
 
-            $.getJSON('unidades/index', (data) => {
-                for(let i = 0; i < data.length; i++) {
-                    let option = `<option value="${data[i].id}">${data[i].sigla}</option>`
+        //     $.getJSON('unidades/index', (data) => {
+        //         for(let i = 0; i < data.length; i++) {
+        //             let option = `<option value="${data[i].id}">${data[i].sigla}</option>`
 
-                    $('.unidade').append(option)
+        //             $('.unidade').append(option)
 
-                }
-            })
+        //         }
+        //     })
 
-            $.getJSON('grades/index', (data) => {
-                for(let i = 0; i < data.length; i++) {
-                    let option = `<option value="${data[i].id}">${data[i].nome}</option>`
+        //     $.getJSON('grades/index', (data) => {
+        //         for(let i = 0; i < data.length; i++) {
+        //             let option = `<option value="${data[i].id}">${data[i].nome}</option>`
 
-                    $('.grade').append(option)
+        //             $('.grade').append(option)
 
-                }
-            })
-        })
+        //         }
+        //     })
+        // })
 
         //////////////////////////////////////////////////////////
         
         // salvando novas categorias
         $('#form-store').submit((event) => {
             event.preventDefault()
-            let material = {
-                categoria_id: $('#categoria').val(),
+            let unidade = {
+                // categoria_id: $('#categoria').val(),
                 nome: $('#nome').val(),
-                unidade_id: $('#unidade').val(),
-                preco: $('#preco').val(),
-                grade_id: $('#grade').val(),
-                status: 1,
+                // unidade_id: $('#unidade').val(),
+                sigla: $('#sigla').val(),
+                // grade_id: $('#grade').val(),
+                // status: 1,
             }
 
-            $.post('materiais', material, (data) => {
+            $.post('unidades', unidade, (data) => {
                 window.location.reload()
             })
             $('#modal-criar').modal('hide')
@@ -279,24 +224,24 @@
             $("#id-edit").val(id)            
 
             // request de show() para retorno do item nos inputs do modal de edicao
-            $.getJSON(`materiais/${id}`, (data) => {
+            $.getJSON(`unidades/${id}`, (data) => {
                 console.log(data)
 
                 $("#nome-edit").val(data.nome)
-                $("#preco-edit").val(data.preco)
-                $(`#categoria-edit option[value=${data.categoria_id}]`).attr('selected','selected')
-                $(`#unidade-edit option[value=${data.unidade_id}]`).attr('selected','selected')
-                $(`#grade-edit option[value=${data.grade_id ? data.grade_id : null}]`).attr('selected','selected')                
+                $("#sigla-edit").val(data.sigla)
+                // $(`#categoria-edit option[value=${data.categoria_id}]`).attr('selected','selected')
+                // $(`#unidade-edit option[value=${data.unidade_id}]`).attr('selected','selected')
+                // $(`#grade-edit option[value=${data.grade_id ? data.grade_id : null}]`).attr('selected','selected')                
                 
             })
         })              
 
         // limpeza do selected
-        $('.modal-request').on('hidden.bs.modal', function () {       
-            $('#categoria-edit option:selected').removeAttr('selected');
-            $('#unidade-edit option:selected').removeAttr('selected');
-            $('#grade-edit option:selected').removeAttr('selected');
-        })
+        // $('.modal-request').on('hidden.bs.modal', function () {       
+        //     $('#categoria-edit option:selected').removeAttr('selected');
+        //     $('#unidade-edit option:selected').removeAttr('selected');
+        //     $('#grade-edit option:selected').removeAttr('selected');
+        // })
 
 
         ////////////////////////////////////////////////
@@ -307,7 +252,7 @@
             $("#id-delete").val(id) 
 
             // titulo do modal com nome do item
-            $.getJSON(`materiais/${id}`, (data) => {
+            $.getJSON(`unidades/${id}`, (data) => {
                 $(".modal-title").text(data.nome)
             })            
         })
