@@ -356,6 +356,7 @@
     --}}
 
 <script>
+// FUNCAO
 function disableStatus(id){
 
     var post_url = $(id).attr("action");
@@ -375,25 +376,42 @@ function disableStatus(id){
     });
 }
 
-<div class="custom-control custom-switch">
+// CONTROLLER
 
-    <form method="POST" 
-        id="formDisableStatus{{$interview->id}}" 
-        action="{{route('disableInterview',$interview->id)}}">
+public function disableInterview($interview)
+{
+    if ($interview->status == 0){
+        $interview->status = 1;
+    } else {
+        $interview->status = 0;
+    }
+    $interview->update();   
+    return true;         
+}
 
-            @CSRF 
-            @METHOD('PUT')
+// ELEMENTO
+<td class="espacoTD">
+    <div class="custom-control custom-switch">
 
-        <input onclick="disableStatus(formDisableStatus{{$interview->id}})" 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="switch{{$interview->id}}" 
-            @if($interview->status == 1) checked @endif>
+        <form method="POST" 
+                id="formDisableStatus{{$interview->id}}" 
+                action="{{route('disableInterview',$interview->id)}}">
 
-        <label class="custom-control-label" 
-            for="switch{{$interview->id}}"></label>
+                @CSRF 
+                @METHOD('PUT')
 
-    </form>
+            <input onclick="disableStatus(formDisableStatus{{$interview->id}})" 
+                    type="checkbox" 
+                    class="custom-control-input" 
+                    id="switch{{$interview->id}}" 
+                    @if($interview->status == 1) checked @endif>
 
-</div>
+            <label class="custom-control-label" 
+                    for="switch{{$interview->id}}"></label>
+
+        </form>
+
+    </div>
+</td>
+
 </script>
