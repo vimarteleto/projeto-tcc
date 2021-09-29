@@ -20,7 +20,7 @@ class CreateCorReferenciaTable extends Migration
 
             $table->unique(['cor_id', 'referencia_id']);
 
-            $table->foreign('cor_id')->references('id')->on('cors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('cor_id')->references('id')->on('cores')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('referencia_id')->references('id')->on('referencias')->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();

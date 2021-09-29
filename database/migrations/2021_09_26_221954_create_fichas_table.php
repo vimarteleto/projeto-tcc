@@ -19,7 +19,7 @@ class CreateFichasTable extends Migration
             $table->string('consumo');
             $table->unsignedBigInteger('cor_referencia_id');
 
-            $table->foreign('material_id')->references('id')->on('materials')->onUpdate('cascade');
+            $table->foreign('material_id')->references('id')->on('materiais')->onUpdate('cascade');
             $table->foreign('cor_referencia_id')->references('id')->on('cor_referencia')->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();

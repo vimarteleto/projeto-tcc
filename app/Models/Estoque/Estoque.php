@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Models\FichaTecnica;
+namespace App\Models\Estoque;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cor extends Model
+class Estoque extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = 'cores';
+
+    
 }

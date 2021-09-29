@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Estoque\EstoqueController;
 use App\Http\Controllers\Materiais\CategoriaController;
 use App\Http\Controllers\Materiais\GradeController;
 use App\Http\Controllers\Materiais\MateriaisController;
@@ -49,3 +50,6 @@ Route::get('/grades/index', [GradeController::class, 'index']);
 Route::post('/grades', [GradeController::class, 'store']);
 Route::get('/grades/excluir', [GradeController::class, 'destroy']);
 Route::get('/grades/{id}', [GradeController::class, 'show']);
+
+// estoque
+Route::get('/estoques', [EstoqueController::class, 'view']);

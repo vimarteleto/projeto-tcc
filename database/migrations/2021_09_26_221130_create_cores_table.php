@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCorsTable extends Migration
+class CreateCoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cors', function (Blueprint $table) {
+        Schema::create('cores', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
 
@@ -28,6 +28,6 @@ class CreateCorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cors');
+        Schema::dropIfExists('cores');
     }
 }
