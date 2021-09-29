@@ -10,4 +10,9 @@ class Grade extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function materiais()
+    {
+        return $this->hasMany(Material::class);
+    }
 }

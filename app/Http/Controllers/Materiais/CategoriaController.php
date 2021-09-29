@@ -20,17 +20,17 @@ class CategoriaController extends Controller
         if(isset($request->id)) {
             $categoria = Categoria::find($request->id);
             $categoria->update($request->all());
+            return redirect('/categorias')->with(['warning' => 'Categoria atualizada com sucesso!']);
 
         } else {
             Categoria::create($request->all());
+            return redirect('/categorias')->with(['success' => 'Categoria cadastrada com sucesso!']);
         }
-        
-        return redirect('/categorias');
     }
 
     public function show($id)
     {
-        $categoria = Categoria::find($id);
+        $categoria = Categoria::with('materiais')->find($id);
         return $categoria->toJson();  
     }
 
@@ -40,14 +40,14 @@ class CategoriaController extends Controller
         if (isset($categoria)) {
             $categoria->delete();
         }
-        return redirect('/categorias');
+        return redirect('/categorias')->with(['danger' => 'Categoria excluída com sucesso!']);
     }
 
     /////////////////////////////////////////////
 
     public function view()
     {
-        $categorias = Categoria::all();
+        $categorias = Categoria::with('materiais')->get();
         return view('materiais.categorias', compact('categorias'));
     }
 }

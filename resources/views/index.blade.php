@@ -19,6 +19,7 @@
                         <a href="/categorias" class="btn btn-primary">Categorias</a><br>
                         <a href="/materiais" class="btn btn-primary">Materiais</a><br>
                         <a href="/unidades" class="btn btn-primary">Unidades</a><br>
+                        <a href="/grades" class="btn btn-primary">Grades</a><br>
                     </div>
                 </div>
 

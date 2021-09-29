@@ -21,9 +21,11 @@ class MateriaisController extends Controller
         if(isset($request->id)) {
             $material = Material::find($request->id);
             $material->update($request->all());
+            return redirect('/materiais')->with(['warning' => 'Material atualizado com sucesso!']);
 
         } else {
             Material::create($request->all());
+            return redirect('/materiais')->with(['success' => 'Material cadastrado com sucesso!']);
         }
         
         return redirect('/materiais');
@@ -43,7 +45,7 @@ class MateriaisController extends Controller
         if (isset($material)) {
             $material->delete();
         }
-        return redirect('/materiais');
+        return redirect('/materiais')->with(['danger' => 'Material excluído com sucesso!']);
     }
 
     // retorna a view principal do crud do item, com relacionamentos e ordenado

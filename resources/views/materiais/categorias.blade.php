@@ -1,6 +1,6 @@
 @extends('layouts.app', ['current' => 'categorias'])
 
-@section('body')
+@section('body')   
 
     <div class="card border">
         <div class="card-body">
@@ -57,7 +57,8 @@
     <div class="modal" tabindex="-1" role="dialog" id="modal-criar">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="form-categoria" class="form-horizontal">
+                <form action="/categorias" method="POST" id="form-categoria" class="form-horizontal">
+                    @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Nova categoria</h5>
                     </div>
@@ -67,7 +68,7 @@
                         <div class="form-group">
                             <label for="nome" class="form-check-label">Categoria</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="nome" placeholder="Nome da categoria">
+                                <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome da categoria" required>
                             </div>
                         </div>
                     </div>
@@ -97,7 +98,7 @@
                         <div class="form-group">
                             <label for="nome" class="form-check-label">Categoria</label>
                             <div class="input-group">
-                                <input name="nome" type="text" class="form-control" id="nome-edit" placeholder="Nome da categoria">
+                                <input name="nome" type="text" class="form-control" id="nome-edit" placeholder="Nome da categoria" required>
                             </div>
                         </div>
 
@@ -119,16 +120,13 @@
             <div class="modal-header">
                 <h5 class="modal-title"></h5>
             </div>          
+            <input name="id" type="hidden" id="id-delete" class="form-control">
+            <div class="modal-body modal-delete">
 
-            <div class="modal-body">                
-                Deseja realmente excluir?
-                <input name="id" type="hidden" id="id-delete" class="form-control">
-            </div>
-
+            </div>         
+            
             <div class="modal-footer">
-                {{-- <a href="/categorias/excluir"> --}}
-                    <button class="btn btn-sm btn-danger">Excluir</button>
-                {{-- </a> --}}
+                <button class="btn btn-sm btn-danger">Excluir</button>
             </div>
             </form>
             </div>
@@ -147,20 +145,6 @@
             }
         })
 
-        // salvando novas categorias
-        $('#form-categoria').submit((event) => {
-            event.preventDefault()
-            let categoria = {
-                nome: $('#nome').val(),
-            }
-
-            $.post('categorias', categoria, (data) => {
-                window.location.reload()
-            })
-            $('#modal-criar').modal('hide')
-        })
-
-
         $(".btn-modal-edit").on('click', function() {
             // capturando o valor de data-item-id
             let id = $(this).data('item-id') 
@@ -178,15 +162,22 @@
         $(".btn-modal-delete").on('click', function() {
             let id = $(this).data('item-id') 
             $("#id-delete").val(id) 
-            // console.log(id)
+
 
             $.getJSON(`categorias/${id}`, (data) => {
-                console.log(data.nome)
+                console.log(data)
                 $(".modal-title").text(data.nome)
-            })
 
-
-            
+                if(data.materiais.length > 0)  {
+                    $(".modal-delete").text(
+                        `Existem ${data.materiais.length} materiais nessa categoria. Deseja realmente excluir?` 
+                    )
+                } else {
+                    $(".modal-delete").text(
+                        `Deseja realmente excluir?` 
+                    )
+                }
+            })            
         })
 
     </script>

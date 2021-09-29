@@ -28,7 +28,7 @@
                                 <td>{{$material->nome}}</td>
                                 <td>{{$material->unidade->sigla}}</td>
                                 <td>R$ {{$material->preco}}</td>
-                                <td>{{$material->grade ? $material->grade->nome : '-'}}</td>
+                                <td>{{$material->grade ? $material->grade->id : '-'}}</td>
 
                                 <td>
                                     <div class="custom-control custom-switch">
@@ -81,7 +81,8 @@
     <div class="modal modal-request" tabindex="-1" role="dialog" id="modal-criar">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="form-store" class="form-horizontal">
+                <form action="/materiais" method="POST" id="form-store" class="form-horizontal">
+                    @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Novo material</h5>
                     </div>
@@ -90,14 +91,14 @@
                         <div class="form-group">
                             <label for="categoria" class="form-check-label">Categoria</label>
                             <div class="input-group">
-                                <select name="categoria" id="categoria" class="form-control categoria"></select>
+                                <select name="categoria_id" id="categoria" class="form-control categoria"></select>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="nome" class="form-check-label">Material</label>
                             <div class="input-group">
-                                <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome do material">
+                                <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome do material" required>
                             </div>
                         </div>
 
@@ -105,7 +106,7 @@
                             <div class="col">
                                 <label for="grade" class="form-check-label">Grade</label>
                                 <div class="input-group">
-                                    <select name="grade" id="grade" class="form-control grade">
+                                    <select name="grade_id" id="grade" class="form-control grade">
                                         <option value="">-</option>
                                     </select>
                                 </div>
@@ -114,14 +115,14 @@
                             <div class="col">
                                 <label for="unidade" class="form-check-label">Unidade</label>
                                 <div class="input-group">
-                                    <select name="unidade" id="unidade" class="form-control unidade"></select>
+                                    <select name="unidade_id" id="unidade" class="form-control unidade"></select>
                                 </div>
                             </div>
 
                             <div class="col">
                                 <label for="preco" class="form-check-label">Preço</label>
                                 <div class="input-group">
-                                    <input name="preco" type="number" class="form-control" id="preco">
+                                    <input name="preco" class="form-control" id="preco" required>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +159,7 @@
                         <div class="form-group">
                             <label for="nome" class="form-check-label">Material</label>
                             <div class="input-group">
-                                <input name="nome" type="text" class="form-control" id="nome-edit" placeholder="Nome da categoria">
+                                <input name="nome" type="text" class="form-control" id="nome-edit" placeholder="Nome da categoria" required>
                             </div>
                         </div>
 
@@ -183,7 +184,7 @@
                             <div class="col">
                                 <label for="preco" class="form-check-label">Preço</label>
                                 <div class="input-group">
-                                    <input name="preco" type="number" class="form-control" id="preco-edit">
+                                    <input name="preco" class="form-control" id="preco-edit" required>
                                 </div>
                             </div>
 
@@ -208,7 +209,7 @@
                 <h5 class="modal-title"></h5>
             </div>          
 
-            <div class="modal-body">                
+            <div class="modal-body modal-delete">                
                 Deseja realmente excluir?
                 <input name="id" type="hidden" id="id-delete" class="form-control">
             </div>
@@ -250,7 +251,7 @@
             $.getJSON('unidades/index', (data) => {
                 for(let i = 0; i < data.length; i++) {
                     let option = `<option value="${data[i].id}">${data[i].sigla}</option>`
-
+                    
                     $('.unidade').append(option)
 
                 }
@@ -258,32 +259,12 @@
 
             $.getJSON('grades/index', (data) => {
                 for(let i = 0; i < data.length; i++) {
-                    let option = `<option value="${data[i].id}">${data[i].nome}</option>`
+                    let option = `<option value="${data[i].id}">${data[i].id}</option>`
 
                     $('.grade').append(option)
 
                 }
             })
-        })
-
-        //////////////////////////////////////////////////////////
-        
-        // salvando novas categorias
-        $('#form-store').submit((event) => {
-            event.preventDefault()
-            let material = {
-                categoria_id: $('#categoria').val(),
-                nome: $('#nome').val(),
-                unidade_id: $('#unidade').val(),
-                preco: $('#preco').val(),
-                grade_id: $('#grade').val(),
-                status: 1,
-            }
-
-            $.post('materiais', material, (data) => {
-                window.location.reload()
-            })
-            $('#modal-criar').modal('hide')
         })
 
         //////////////////////////////////////////////////////////
@@ -319,6 +300,17 @@
             $.getJSON(`materiais/${id}`, (data) => {
                 $(".modal-title").text(data.nome)
             })            
+
+            // MANIPULACAO DO BODY DO MODAL DE DELETE ???
+            // if(CONDICAO)  {
+            //     $(".modal-delete").text(
+            //         `TEXTO` 
+            //     )
+            // } else {
+            //     $(".modal-delete").text(
+            //         `TEXTO` 
+            //     )
+            // }
         })
 
         ////////////////////////////////////////////////

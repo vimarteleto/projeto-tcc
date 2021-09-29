@@ -15,38 +15,23 @@ class CreateGradesTable extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('20')->nullable();
-            $table->string('21')->nullable();
-            $table->string('22')->nullable();
-            $table->string('23')->nullable();
-            $table->string('24')->nullable();
-            $table->string('25')->nullable();
-            $table->string('26')->nullable();
-            $table->string('27')->nullable();
-            $table->string('28')->nullable();
-            $table->string('29')->nullable();
-            $table->string('30')->nullable();
-            $table->string('31')->nullable();
-            $table->string('32')->nullable();
-            $table->string('33')->nullable();
-            $table->string('34')->nullable();
-            $table->string('35')->nullable();
-            $table->string('36')->nullable();
-            $table->string('37')->nullable();
-            $table->string('38')->nullable();
-            $table->string('39')->nullable();
-            $table->string('40')->nullable();
-            $table->string('41')->nullable();
-            $table->string('42')->nullable();
-            $table->string('43')->nullable();
-            $table->string('44')->nullable();
-            $table->string('45')->nullable();
-            $table->string('46')->nullable();
-            $table->string('47')->nullable();
-            $table->string('48')->nullable();
-            $table->string('49')->nullable();
-            $table->string('50')->nullable();
+                        
+            $table->string('numero_33')->nullable();
+            $table->string('numero_34')->nullable();
+            $table->string('numero_35')->nullable();
+            $table->string('numero_36')->nullable();
+            $table->string('numero_37')->nullable();
+            $table->string('numero_38')->nullable();
+            $table->string('numero_39')->nullable();
+            $table->string('numero_40')->nullable();
+            $table->string('numero_41')->nullable();
+            $table->string('numero_42')->nullable();
+            $table->string('numero_43')->nullable();
+            $table->string('numero_44')->nullable();
+            $table->string('numero_45')->nullable();
+            $table->string('numero_46')->nullable();
+            $table->string('numero_47')->nullable();
+            $table->string('numero_48')->nullable();
 
             $table->timestamps();
 

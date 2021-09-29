@@ -25,7 +25,6 @@ Route::get('/', function () {
 Route::get('/categorias', [CategoriaController::class, 'view']); // retorna a view
 Route::get('/categorias/index', [CategoriaController::class, 'index']); // retorna um index com todos
 Route::post('/categorias', [CategoriaController::class, 'store']); // salva ou atualiza registros
-// Route::put('/categorias', [CategoriaController::class, 'update']); // salva ou atualiza registros
 Route::get('/categorias/excluir', [CategoriaController::class, 'destroy']); // deleta registros
 Route::get('/categorias/{id}', [CategoriaController::class, 'show']); // busca um registro especifico
 
@@ -34,7 +33,6 @@ Route::get('/materiais', [MateriaisController::class, 'view']);
 Route::get('/materiais/index', [MateriaisController::class, 'index']);
 Route::post('/materiais', [MateriaisController::class, 'store']);
 Route::post('/materiais/status/{id}', [MateriaisController::class, 'status']);
-// Route::put('/materiais', [MateriaisController::class, 'update']);
 Route::get('/materiais/excluir', [MateriaisController::class, 'destroy']);
 Route::get('/materiais/{id}', [MateriaisController::class, 'show']);
 
@@ -42,7 +40,6 @@ Route::get('/materiais/{id}', [MateriaisController::class, 'show']);
 Route::get('/unidades', [UnidadeController::class, 'view']);
 Route::get('/unidades/index', [UnidadeController::class, 'index']);
 Route::post('/unidades', [UnidadeController::class, 'store']);
-// Route::put('/unidades', [UnidadeController::class, 'update']);
 Route::get('/unidades/excluir', [UnidadeController::class, 'destroy']);
 Route::get('/unidades/{id}', [UnidadeController::class, 'show']);
 
@@ -50,6 +47,5 @@ Route::get('/unidades/{id}', [UnidadeController::class, 'show']);
 Route::get('/grades', [GradeController::class, 'view']);
 Route::get('/grades/index', [GradeController::class, 'index']);
 Route::post('/grades', [GradeController::class, 'store']);
-// Route::put('/grades', [GradeController::class, 'update']);
 Route::get('/grades/excluir', [GradeController::class, 'destroy']);
 Route::get('/grades/{id}', [GradeController::class, 'show']);

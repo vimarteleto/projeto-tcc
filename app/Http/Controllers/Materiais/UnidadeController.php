@@ -11,7 +11,7 @@ class UnidadeController extends Controller
     
     public function index()
     {
-        $unidades = Unidade::all();
+        $unidades = Unidade::with('materiais')->get();
         return $unidades->toJson();        
     }
 
@@ -20,9 +20,11 @@ class UnidadeController extends Controller
         if(isset($request->id)) {
             $unidade = Unidade::find($request->id);
             $unidade->update($request->all());
+            return redirect('/unidades')->with(['warning' => 'Unidade atualizada com sucesso!']);
 
         } else {
             Unidade::create($request->all());
+            return redirect('/unidades')->with(['success' => 'Unidade cadastrada com sucesso!']);
         }
         
         return redirect('/unidades');
@@ -30,7 +32,7 @@ class UnidadeController extends Controller
 
     public function show($id)
     {
-        $unidade = Unidade::find($id);
+        $unidade = Unidade::with('materiais')->find($id);
         return $unidade->toJson();  
     }
 
@@ -40,14 +42,14 @@ class UnidadeController extends Controller
         if (isset($unidade)) {
             $unidade->delete();
         }
-        return redirect('/unidades');
+        return redirect('/unidades')->with(['danger' => 'Unidade excluída com sucesso!']);
     }
 
     /////////////////////////////////////////////
 
     public function view()
     {
-        $unidades = Unidade::all();
+        $unidades = Unidade::with('materiais')->get();
         return view('materiais.unidades', compact('unidades'));
     }
 }

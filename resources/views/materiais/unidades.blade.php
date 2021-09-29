@@ -28,15 +28,16 @@
                                        data-target="#modal-edit"
                                        data-item-id={{$unidade->id}}                                       
                                        data-item-nome="{{$unidade->nome}}"                                       
-                                       data-item-sigla="{{$unidade->sigla}}"                                   
+                                       data-item-sigla="{{$unidade->sigla}}"     
+                                                                
                                     >
                                        Editar
                                    </a>
 
-                                    <a class="btn btn-sm btn-danger btn-modal-delete" 
+                                    <a class="btn btn-sm btn-danger btn-modal-delete {{count($unidade->materiais) > 0 ? 'disabled' : ''}}" 
                                         data-toggle="modal" 
                                         data-target="#modal-delete"
-                                        data-item-id={{$unidade->id}}
+                                        data-item-id={{$unidade->id}}                                    
                                     >
                                         Excluir
                                     </a>
@@ -57,7 +58,8 @@
     <div class="modal modal-request" tabindex="-1" role="dialog" id="modal-criar">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="form-store" class="form-horizontal">
+                <form action="unidades" method="POST" id="form-store" class="form-horizontal">
+                    @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Nova unidade</h5>
                     </div>
@@ -68,14 +70,14 @@
                             <div class="col">
                                 <label for="nome" class="form-check-label">Unidade</label>
                                 <div class="input-group">
-                                    <input name="nome" id="nome" class="form-control nome" placeholder="Nome da unidade">
+                                    <input name="nome" id="nome" class="form-control nome" placeholder="Nome da unidade" required>
                                 </div>
                             </div>
 
                             <div class="col">
                                 <label for="sigla" class="form-check-label">Sigla</label>
                                 <div class="input-group">
-                                    <input name="sigla" type="text" class="form-control" id="sigla" placeholder="Sigla da unidade">
+                                    <input name="sigla" type="text" class="form-control" id="sigla" placeholder="Sigla da unidade" required>
                                 </div>
                             </div>
                         </div>
@@ -106,14 +108,14 @@
                             <div class="col">
                                 <label for="nome" class="form-check-label">Unidade</label>
                                 <div class="input-group">
-                                    <input name="nome" id="nome-edit" class="form-control nome" placeholder="Nome da unidade">
+                                    <input name="nome" id="nome-edit" class="form-control nome" placeholder="Nome da unidade" required>
                                 </div>
                             </div>
 
                             <div class="col">
                                 <label for="sigla" class="form-check-label">Sigla</label>
                                 <div class="input-group">
-                                    <input name="sigla" type="text" class="form-control" id="sigla-edit" placeholder="Sigla da unidade">
+                                    <input name="sigla" type="text" class="form-control" id="sigla-edit" placeholder="Sigla da unidade" required>
                                 </div>
                             </div>
                         </div>
@@ -164,25 +166,6 @@
             }
         })
 
-        //////////////////////////////////////////////////////////
-        
-        // salvando novas categorias
-        $('#form-store').submit((event) => {
-            event.preventDefault()
-            let unidade = {
-                // categoria_id: $('#categoria').val(),
-                nome: $('#nome').val(),
-                // unidade_id: $('#unidade').val(),
-                sigla: $('#sigla').val(),
-                // grade_id: $('#grade').val(),
-                // status: 1,
-            }
-
-            $.post('unidades', unidade, (data) => {
-                window.location.reload()
-            })
-            $('#modal-criar').modal('hide')
-        })
 
         //////////////////////////////////////////////////////////
         
@@ -208,10 +191,11 @@
         $(".btn-modal-delete").on('click', function() {
             let id = $(this).data('item-id') 
             $("#id-delete").val(id) 
-
+        
             // titulo do modal com nome do item
             $.getJSON(`unidades/${id}`, (data) => {
                 $(".modal-title").text(data.nome)
+                console.log(data)
             })            
         })
 

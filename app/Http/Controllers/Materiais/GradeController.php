@@ -11,18 +11,20 @@ class GradeController extends Controller
     
     public function index()
     {
-        $grades = Grade::all();
+        $grades = Grade::with('materiais')->get();
         return $grades->toJson();        
     }
 
     public function store(Request $request)
     {
         if(isset($request->id)) {
-            $material = Grade::find($request->id);
-            $material->update($request->all());
+            $grade = Grade::find($request->id);
+            $grade->update($request->all());
+            return redirect('/grades')->with(['warning' => 'Grade atualizada com sucesso!']);
 
         } else {
             Grade::create($request->all());
+            return redirect('/grades')->with(['success' => 'Grade cadastrada com sucesso!']);
         }
         
         return redirect('/grades');
@@ -30,10 +32,9 @@ class GradeController extends Controller
 
     public function show($id)
     {
-        $grade = Grade::find($id);
+        $grade = Grade::with('materiais')->find($id);
         return $grade->toJson();  
     }
-
 
     public function destroy(Request $request)
     {
@@ -41,14 +42,14 @@ class GradeController extends Controller
         if (isset($grade)) {
             $grade->delete();
         }
-        return redirect('/grades');
+        return redirect('/grades')->with(['danger' => 'Grade excluída com sucesso!']);
     }
 
     /////////////////////////////////////////////
 
     public function view()
     {
-        $grades = Grade::all();
+        $grades = Grade::with('materiais')->get();
         return view('materiais.grades', compact('grades'));
     }
 }
