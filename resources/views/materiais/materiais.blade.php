@@ -33,11 +33,13 @@
                                 <td>
                                     <div class="custom-control custom-switch">
                                             <input 
-                                                data-item-switch={{$material->id}} 
+                                                data-id={{$material->id}} 
+                                                data-route="materiais"
                                                 type="checkbox" 
                                                 class="custom-control-input" 
                                                 id="switch{{$material->id}}"
                                                 {{$material->status == 1 ? 'checked' : ''}}
+                                                onclick=statusChange()
                                             >                                    
                                             <label class="custom-control-label" for="switch{{$material->id}}"></label>
                                     </div>
@@ -315,15 +317,15 @@
 
         ////////////////////////////////////////////////
 
-        // inativacao via switch
-        $(".custom-control-input").on('click', function() {
-            let id = $(this).data('item-switch')
-            console.log(id)
+        // // inativacao via switch
+        // $(".custom-control-input").on('click', function() {
+        //     let id = $(this).data('item-switch')
+        //     console.log(id)
 
-            $.post(`materiais/status/${id}`, (data) => {
-                console.log(data)
-            })
-        })
+        //     $.post(`materiais/status/${id}`, (data) => {
+        //         console.log(data)
+        //     })
+        // })
 
     </script>
 @endsection

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Estoque\EstoqueController;
+use App\Http\Controllers\FichaTecnica\LinhaController;
+use App\Http\Controllers\FichaTecnica\ReferenciaController;
 use App\Http\Controllers\Materiais\CategoriaController;
 use App\Http\Controllers\Materiais\GradeController;
 use App\Http\Controllers\Materiais\MateriaisController;
@@ -54,3 +56,20 @@ Route::get('/grades/{id}', [GradeController::class, 'show']);
 // estoque
 Route::get('/estoques', [EstoqueController::class, 'view']);
 Route::post('/estoques', [EstoqueController::class, 'store']);
+
+////////////////////////////////////////////////////////////////
+
+// linhas
+Route::get('/linhas', [LinhaController::class, 'view']); 
+Route::get('/linhas/index', [LinhaController::class, 'index']); 
+Route::post('/linhas', [LinhaController::class, 'store']); 
+Route::get('/linhas/excluir', [LinhaController::class, 'destroy']);
+Route::get('/linhas/{id}', [LinhaController::class, 'show']); 
+Route::post('/linhas/status/{id}', [LinhaController::class, 'status']);
+
+// referencias
+Route::get('/referencias', [ReferenciaController::class, 'view']);
+Route::get('/referencias/index', [ReferenciaController::class, 'index']); 
+Route::post('/referencias', [ReferenciaController::class, 'store']); 
+Route::get('/referencias/excluir', [ReferenciaController::class, 'destroy']);
+Route::get('/referencias/{id}', [ReferenciaController::class, 'show']);
