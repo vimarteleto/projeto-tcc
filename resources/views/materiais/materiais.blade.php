@@ -315,17 +315,6 @@
             // }
         })
 
-        ////////////////////////////////////////////////
-
-        // // inativacao via switch
-        // $(".custom-control-input").on('click', function() {
-        //     let id = $(this).data('item-switch')
-        //     console.log(id)
-
-        //     $.post(`materiais/status/${id}`, (data) => {
-        //         console.log(data)
-        //     })
-        // })
 
     </script>
 @endsection
