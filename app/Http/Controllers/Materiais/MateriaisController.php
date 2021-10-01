@@ -19,7 +19,6 @@ class MateriaisController extends Controller
     // cria novos registros ou atualiza registros existentes
     public function store(Request $request)
     {
-
         if(isset($request->id)) {
             $material = Material::with('grade')->find($request->id);
             $nome = $material->nome;
@@ -137,7 +136,7 @@ class MateriaisController extends Controller
             foreach($grades as $grade) {
                 Estoque::create([
                     'material_id' => $material->id,
-                    'material' => $material->nome . ' ' . $grade,
+                    'descricao' => $material->nome . ' ' . $grade,
                     'grade_id' => $grade_id,
                     'quantidade' => '0'
                 ]);
@@ -145,7 +144,7 @@ class MateriaisController extends Controller
         } else {
             Estoque::create([
                 'material_id' => $material->id,
-                'material' => $material->nome,
+                'descricao' => $material->nome,
                 'quantidade' => '0'
             ]);
         }

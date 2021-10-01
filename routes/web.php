@@ -53,3 +53,4 @@ Route::get('/grades/{id}', [GradeController::class, 'show']);
 
 // estoque
 Route::get('/estoques', [EstoqueController::class, 'view']);
+Route::post('/estoques', [EstoqueController::class, 'store']);

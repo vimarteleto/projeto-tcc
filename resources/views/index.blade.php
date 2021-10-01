@@ -15,20 +15,19 @@
                 <div class="card border border-primary">
                     <div class="card-body">
                         <h5 class="card-title">Materiais</h5>
-                        <p class="card-text">Cadastros de materiais</p>
+                        <a href="/estoques" class="btn btn-primary">Estoques</a><br>
                         <a href="/categorias" class="btn btn-primary">Categorias</a><br>
                         <a href="/materiais" class="btn btn-primary">Materiais</a><br>
-                        <a href="/unidades" class="btn btn-primary">Unidades</a><br>
                         <a href="/grades" class="btn btn-primary">Grades</a><br>
+                        <a href="/unidades" class="btn btn-primary">Unidades</a><br>
                     </div>
                 </div>
 
                 {{-- materiais --}}
-                <div class="card border border-primary">
+                <div class="card border border-danger">
                     <div class="card-body">
                         <h5 class="card-title">Cadastro</h5>
-                        <p class="card-text">Cadastro</p>
-                        <a href="/#" class="btn btn-primary">Cadastre</a>
+                        <a href="/#" class="btn btn-primary btn-danger">Cadastre</a>
                     </div>
                 </div>
 

@@ -16,7 +16,7 @@ class CreateMateriaisTable extends Migration
         Schema::create('materiais', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('preco');
+            $table->decimal('preco');
             $table->boolean('status')->default(1);
             $table->unsignedBigInteger('categoria_id');
             $table->unsignedBigInteger('unidade_id');

@@ -17,8 +17,8 @@ class CreateEstoquesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('material_id');
             $table->unsignedBigInteger('grade_id')->nullable();
-            $table->string('material');
-            $table->string('quantidade');
+            $table->string('descricao');
+            $table->decimal('quantidade');
 
             $table->foreign('material_id')->references('id')->on('materiais')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('grade_id')->references('id')->on('grades')->onUpdate('cascade')->onDelete('cascade');
