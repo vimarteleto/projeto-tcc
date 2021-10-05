@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Estoque\EstoqueController;
+use App\Http\Controllers\FichaTecnica\CorController;
+use App\Http\Controllers\FichaTecnica\CorReferenciaController;
+use App\Http\Controllers\FichaTecnica\FichaController;
 use App\Http\Controllers\FichaTecnica\LinhaController;
 use App\Http\Controllers\FichaTecnica\ReferenciaController;
 use App\Http\Controllers\Materiais\CategoriaController;
@@ -34,6 +37,7 @@ Route::get('/categorias/{id}', [CategoriaController::class, 'show']); // busca u
 // materiais
 Route::get('/materiais', [MateriaisController::class, 'view']);
 Route::get('/materiais/index', [MateriaisController::class, 'index']);
+Route::get('fichas/materiais/index', [MateriaisController::class, 'index']);
 Route::post('/materiais', [MateriaisController::class, 'store']);
 Route::post('/materiais/status/{id}', [MateriaisController::class, 'status']);
 Route::get('/materiais/excluir', [MateriaisController::class, 'destroy']);
@@ -73,3 +77,32 @@ Route::get('/referencias/index', [ReferenciaController::class, 'index']);
 Route::post('/referencias', [ReferenciaController::class, 'store']); 
 Route::get('/referencias/excluir', [ReferenciaController::class, 'destroy']);
 Route::get('/referencias/{id}', [ReferenciaController::class, 'show']);
+Route::post('/referencias/status/{id}', [ReferenciaController::class, 'status']);
+
+// referencias
+Route::get('/cores', [CorController::class, 'view']);
+Route::get('/cores/index', [CorController::class, 'index']); 
+Route::post('/cores', [CorController::class, 'store']); 
+Route::get('/cores/excluir', [CorController::class, 'destroy']);
+Route::get('/cores/{id}', [CorController::class, 'show']);
+// Route::post('/cores/status/{id}', [CorController::class, 'status']);
+
+
+// skus
+Route::get('/skus', [CorReferenciaController::class, 'view']);
+Route::get('/skus/index', [CorReferenciaController::class, 'index']); 
+Route::post('/skus', [CorReferenciaController::class, 'store']); 
+Route::get('/skus/excluir', [CorReferenciaController::class, 'destroy']);
+Route::post('/skus/status/{id}', [CorReferenciaController::class, 'status']);
+Route::post('/skus/duplicate', [CorReferenciaController::class, 'duplicate']);
+Route::get('/skus/{id}', [CorReferenciaController::class, 'show']);
+
+
+
+// fichas
+Route::get('/fichas/{id}', [FichaController::class, 'view']);
+Route::get('/fichas/index', [FichaController::class, 'index']); 
+Route::post('/fichas', [FichaController::class, 'store']); 
+Route::get('/fichas/fichas/excluir', [FichaController::class, 'destroy']);
+Route::get('/fichas/fichas/{id}', [FichaController::class, 'show']);
+Route::post('/fichas/status/{id}', [FichaController::class, 'status']);

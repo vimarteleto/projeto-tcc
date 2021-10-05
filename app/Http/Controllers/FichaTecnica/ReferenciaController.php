@@ -20,17 +20,17 @@ class ReferenciaController extends Controller
         if(isset($request->id)) {
             $referencia = Referencia::find($request->id);
             $referencia->update($request->all());
-            return redirect('/referencias')->with(['warning' => 'Referencia atualizada com sucesso!']);
+            return redirect('/referencias')->with(['warning' => 'Referência atualizada com sucesso!']);
 
         } else {
             Referencia::create($request->all());
-            return redirect('/referencias')->with(['success' => 'Referencia cadastrada com sucesso!']);
+            return redirect('/referencias')->with(['success' => 'Referência cadastrada com sucesso!']);
         }
     }
 
     public function show($id)
     {
-        $referencia = Referencia::find($id);
+        $referencia = Referencia::with('linha')->find($id);
         return $referencia->toJson();  
     }
 
@@ -40,14 +40,34 @@ class ReferenciaController extends Controller
         if (isset($referencia)) {
             $referencia->delete();
         }
-        return redirect('/referencias')->with(['danger' => 'Referencia excluída com sucesso!']);
+        return redirect('/referencias')->with(['danger' => 'Referência excluída com sucesso!']);
     }
 
     /////////////////////////////////////////////
 
     public function view()
     {
-        $referencias = Referencia::all();
+        $referencias = Referencia::with('linha')
+            ->whereRelation('linha', 'status', 1)
+        // ->paginate(10);
+        ->get();
+
         return view('ficha.referencias', compact('referencias'));
+
+    }
+
+    // alteracao de status
+    public function status($id)
+    {
+        $linha = Referencia::find($id);
+
+        if ($linha->status == 0){
+            $linha->status = 1;
+        } else {
+            $linha->status = 0;
+        }
+        $linha->update();
+        
+        return 'Referencia inativado com sucesso!';
     }
 }

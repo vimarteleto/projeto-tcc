@@ -1,60 +1,44 @@
-@extends('layouts.app', ['current' => 'linhas'])
+@extends('layouts.app', ['current' => 'cores'])
 
 @section('body')   
     
     <div class="card border">
         <div class="card-body">
-            <h5 class="card-title">Cadastro de linhas</h5>
+            <h5 class="card-title">Cadastro de cores</h5>
 
                 <table class="table table-ordered table-hover" id="tabelaLinhas">
                     <thead>
                         <tr>
                             <th>Cógido</th>
-                            <th>Nome</th>
-                            <th>Status</th>
+                            <th>Descrição</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>            
                         
-                        @foreach($linhas as $linha)
+                        @foreach($cores as $cor)
                             <tr>
-                                <td>{{$linha->id}}</td>
-                                <td>{{$linha->nome}}</td>
+                                <td>{{$cor->codigo}}</td>
+                                <td>{{$cor->nome}}</td>
 
                                 <td>
-                                    <div class="custom-control custom-switch">
-                                            <input 
-                                                data-id={{$linha->id}} 
-                                                data-route="linhas"
-                                                type="checkbox" 
-                                                class="custom-control-input" 
-                                                id="switch{{$linha->id}}"
-                                                {{$linha->status == 1 ? 'checked' : ''}}
-                                                onclick=statusChange(this)
-                                                
-                                            >                                    
-                                            <label class="custom-control-label" for="switch{{$linha->id}}"></label>
-                                    </div>
-                                </td>
-
-                                <td>
-
                                     <a class="btn btn-sm btn-primary btn-modal-edit" 
                                        data-toggle="modal" 
                                        data-target="#modal-edit"
-                                       data-id={{$linha->id}}                                       
-                                       data-nome="{{$linha->nome}}" 
+                                       data-id={{$cor->id}}                                       
+                                       data-nome="{{$cor->nome}}" 
+                                       data-codigo="{{$cor->codigo}}" 
                                        onclick=getEditOptions(this)                                   
                                     >
                                        Editar
                                    </a>
 
-                                    <a  class="btn btn-sm btn-danger {{count($linha->referencias) > 0 ? 'disabled' : ''}}" 
+                                    {{-- <a  class="btn btn-sm btn-danger {{count($cor->referencias) > 0 ? 'disabled' : ''}}"  --}}
+                                    <a  class="btn btn-sm btn-danger" 
                                         data-toggle="modal" 
                                         data-target="#modal-delete"
-                                        data-id={{$linha->id}}
-                                        data-route="linhas"
+                                        data-id={{$cor->id}}
+                                        data-route="cores"
                                         onclick=deleteModal(this)
                                     >
                                         Excluir
@@ -69,7 +53,7 @@
 
         </div>
         <div class="card-footer">
-            <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-criar">Nova linha</a>
+            <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-criar">Nova cor</a>
         </div>
     </div>
 
@@ -77,18 +61,25 @@
     <div class="modal" tabindex="-1" role="dialog" id="modal-criar">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="/linhas" method="POST" id="form-linha" class="form-horizontal">
+                <form action="/cores" method="POST" id="form-cor" class="form-horizontal">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title">Nova linha</h5>
+                        <h5 class="modal-title">Nova cor</h5>
                     </div>
                     <div class="modal-body">
                         {{-- <input type="hidden" id="id" class="form-control"> --}}
 
                         <div class="form-group">
-                            <label for="nome" class="form-check-label">Linha</label>
+                            <label for="nome" class="form-check-label">Código</label>
                             <div class="input-group">
-                                <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome da linha" required>
+                                <input name="codigo" type="text" class="form-control" id="codigo" placeholder="Código da cor" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="form-check-label">Descrição</label>
+                            <div class="input-group">
+                                <input name="nome" type="text" class="form-control" id="nome" placeholder="Descrição da cor" required>
                             </div>
                         </div>
                     </div>
@@ -105,23 +96,28 @@
     <div class="modal modal-edit" tabindex="-1" role="dialog" id="modal-edit">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="/linhas" method="POST" id="form-linha-edit" class="form-horizontal">
+                <form action="/cores" method="POST" id="form-cor-edit" class="form-horizontal">
                     @csrf
                     
                     <div class="modal-header">
-                        <h5 class="modal-title">Editar linha</h5>
+                        <h5 class="modal-title">Editar cor</h5>
                     </div>
                     <div class="modal-body">
-
                         <input name="id" type="hidden" id="id-edit" class="form-control">
 
                         <div class="form-group">
-                            <label for="nome" class="form-check-label">Linha</label>
+                            <label for="nome" class="form-check-label">Código</label>
                             <div class="input-group">
-                                <input name="nome" type="text" class="form-control" id="nome-edit" required>
+                                <input name="codigo" type="text" class="form-control codigo" id="codigo-edit" required>
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="nome" class="form-check-label">Descrição</label>
+                            <div class="input-group">
+                                <input name="nome" type="text" class="form-control nome" id="nome-edit" required>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary btn-sm" type="submit">Salvar</button>
@@ -136,7 +132,7 @@
     <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color:white">
-            <form action="linhas/excluir" id="form-linha" class="form-horizontal">
+            <form action="cores/excluir" id="form-cor" class="form-horizontal">
             <div class="modal-header">
                 <h5 class="modal-delete-title"></h5>
             </div>          

@@ -15,4 +15,10 @@ class Referencia extends Model
     {
         return $this->belongsTo(Linha::class);
     }
+
+    public function cores()
+    {
+        return $this->belongsToMany(Cor::class)->using(CorReferencia::class);
+    }
+
 }

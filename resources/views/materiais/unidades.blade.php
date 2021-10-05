@@ -26,10 +26,10 @@
                                     <a class="btn btn-sm btn-primary btn-modal-edit" 
                                        data-toggle="modal" 
                                        data-target="#modal-edit"
-                                       data-item-id={{$unidade->id}}                                       
-                                       data-item-nome="{{$unidade->nome}}"                                       
-                                       data-item-sigla="{{$unidade->sigla}}"     
-                                                                
+                                       data-id={{$unidade->id}}                                       
+                                       data-nome="{{$unidade->nome}}"                                       
+                                       data-sigla="{{$unidade->sigla}}" 
+                                       onclick=getEditOptions(this)                                                                     
                                     >
                                        Editar
                                    </a>
@@ -37,7 +37,9 @@
                                     <a class="btn btn-sm btn-danger btn-modal-delete {{count($unidade->materiais) > 0 ? 'disabled' : ''}}" 
                                         data-toggle="modal" 
                                         data-target="#modal-delete"
-                                        data-item-id={{$unidade->id}}                                    
+                                        data-id={{$unidade->id}}  
+                                        data-route="unidades"
+                                        onclick=deleteModal(this)                                  
                                     >
                                         Excluir
                                     </a>
@@ -136,7 +138,7 @@
             <div class="modal-content" style="background-color:white">
             <form action="unidades/excluir" id="form-categoria" class="form-horizontal">
             <div class="modal-header">
-                <h5 class="modal-title"></h5>
+                <h5 class="modal-delete-title"></h5>
             </div>          
 
             <div class="modal-body">                
@@ -164,39 +166,6 @@
             headers: {
                 'X-CSRF-TOKEN': "{{csrf_token()}}"
             }
-        })
-
-
-        //////////////////////////////////////////////////////////
-        
-        // clique no botao editar
-        $(".btn-modal-edit").on('click', function() {
-            // capturando o valor de data-item-id
-            let id = $(this).data('item-id')  
-            let nome = $(this).data('item-nome') 
-            let sigla = $(this).data('item-sigla')  
-
-            // passando o valor par ao input hidden       
-            $("#id-edit").val(id)    
-
-            // demais inputs
-            $("#nome-edit").val(nome)        
-            $("#sigla-edit").val(sigla)        
-
-        })              
-
-        ////////////////////////////////////////////////
-
-        // metodo de exclusao    
-        $(".btn-modal-delete").on('click', function() {
-            let id = $(this).data('item-id') 
-            $("#id-delete").val(id) 
-        
-            // titulo do modal com nome do item
-            $.getJSON(`unidades/${id}`, (data) => {
-                $(".modal-title").text(data.nome)
-                console.log(data)
-            })            
         })
 
     </script>

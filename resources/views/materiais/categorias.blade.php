@@ -1,5 +1,6 @@
 @extends('layouts.app', ['current' => 'categorias'])
 
+
 @section('body')   
 
     <div class="card border">
@@ -23,19 +24,22 @@
 
                                 <td>
 
-                                    <a class="btn btn-sm btn-primary btn-modal-edit" 
+                                    <a class="btn btn-sm btn-primary" 
                                        data-toggle="modal" 
                                        data-target="#modal-edit"
-                                       data-item-id={{$categoria->id}}                                       
-                                       data-item-nome="{{$categoria->nome}}"                                    
+                                       data-id={{$categoria->id}}                                       
+                                       data-nome="{{$categoria->nome}}"   
+                                       onclick=getEditOptions(this)                                 
                                     >
                                        Editar
                                    </a>
 
-                                    <a class="btn btn-sm btn-danger btn-modal-delete" 
+                                    <a  class="btn btn-sm btn-danger {{count($categoria->materiais) > 0 ? 'disabled' : ''}}" 
                                         data-toggle="modal" 
                                         data-target="#modal-delete"
-                                        data-item-id={{$categoria->id}}
+                                        data-id={{$categoria->id}} 
+                                        data-route="categorias"
+                                        onclick=deleteModal(this)                                       
                                     >
                                         Excluir
                                     </a>
@@ -118,11 +122,11 @@
             <div class="modal-content" style="background-color:white">
             <form action="categorias/excluir" id="form-categoria" class="form-horizontal">
             <div class="modal-header">
-                <h5 class="modal-title"></h5>
+                <h5 class="modal-delete-title"></h5>
             </div>          
             <input name="id" type="hidden" id="id-delete" class="form-control">
             <div class="modal-body modal-delete">
-
+                Deseja realmente excluir?
             </div>         
             
             <div class="modal-footer">
@@ -143,41 +147,6 @@
             headers: {
                 'X-CSRF-TOKEN': "{{csrf_token()}}"
             }
-        })
-
-        $(".btn-modal-edit").on('click', function() {
-            // capturando o valor de data-item-id
-            let id = $(this).data('item-id') 
-            let nome = $(this).data('item-nome') 
-
-            // passando o valor par ao input hidden       
-            $("#id-edit").val(id)
-            
-            // demais inputs
-            $("#nome-edit").val(nome)
-
-        })  
-
-        // metodo de exclusao    
-        $(".btn-modal-delete").on('click', function() {
-            let id = $(this).data('item-id') 
-            $("#id-delete").val(id) 
-
-
-            $.getJSON(`categorias/${id}`, (data) => {
-                console.log(data)
-                $(".modal-title").text(data.nome)
-
-                if(data.materiais.length > 0)  {
-                    $(".modal-delete").text(
-                        `Existem ${data.materiais.length} materiais nessa categoria. Deseja realmente excluir?` 
-                    )
-                } else {
-                    $(".modal-delete").text(
-                        `Deseja realmente excluir?` 
-                    )
-                }
-            })            
         })
 
     </script>

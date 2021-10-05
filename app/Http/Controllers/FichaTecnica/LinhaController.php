@@ -11,7 +11,7 @@ class LinhaController extends Controller
     
     public function index()
     {
-        $linhas = Linha::all();
+        $linhas = Linha::where('status', 1)->get();
         return $linhas->toJson();        
     }
 

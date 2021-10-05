@@ -30,22 +30,17 @@
                                 <td>R$ {{$estoque->material->preco * $estoque->quantidade}}</td>
                                 
                                 <td>
-                                    <a class="btn btn-sm btn-primary btn-modal-edit" 
-                                       data-toggle="modal" 
-                                       data-target="#modal-edit"
-                                       data-item-id={{$estoque->id}}                                       
+                                    <a  class="btn btn-sm btn-primary btn-modal-edit" 
+                                        data-toggle="modal" 
+                                        data-target="#modal-edit"
+                                        data-id={{$estoque->id}}                                      
+                                        data-route="estoques"
+                                        onclick=getEditOptions(this)   
                                    
                                     >
                                        Editar
                                    </a>
 
-                                    {{-- <a class="btn btn-sm btn-danger btn-modal-delete" 
-                                        data-toggle="modal" 
-                                        data-target="#modal-delete"
-                                        data-item-id={{$estoque->id}}
-                                    >
-                                        Excluir
-                                    </a> --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -140,21 +135,7 @@
             headers: {
                 'X-CSRF-TOKEN': "{{csrf_token()}}"
             }
-        })
-
-        //////////////////////////////////////////////////////////
-        
-        // clique no botao editar
-        $(".btn-modal-edit").on('click', function() {
-            // capturando o valor de data-item-id
-            let id = $(this).data('item-id')   
-            console.log(id)
-
-            // passando o valor par ao input hidden       
-            $("#id-edit").val(id)       
-  
-
-        })             
+        })          
 
 
     </script>

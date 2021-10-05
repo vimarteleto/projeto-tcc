@@ -19,7 +19,8 @@ class EstoqueController extends Controller
 
         $estoques = Estoque::with('material.unidade', 'material.categoria')
             ->whereRelation('material', 'status', 1)
-        ->paginate(10);
+        // ->paginate(10);
+        ->get();
 
         return view('estoques.estoques', compact('estoques'));
     }
