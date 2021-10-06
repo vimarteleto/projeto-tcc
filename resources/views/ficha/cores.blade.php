@@ -33,8 +33,7 @@
                                        Editar
                                    </a>
 
-                                    {{-- <a  class="btn btn-sm btn-danger {{count($cor->referencias) > 0 ? 'disabled' : ''}}"  --}}
-                                    <a  class="btn btn-sm btn-danger" 
+                                    <a  class="btn btn-sm btn-danger {{count($cor->skus) > 0 ? 'disabled' : ''}}" 
                                         data-toggle="modal" 
                                         data-target="#modal-delete"
                                         data-id={{$cor->id}}

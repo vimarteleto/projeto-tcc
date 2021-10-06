@@ -37,6 +37,9 @@ function getEditOptions(e) {
     let linha = e.getAttribute('data-linha');
     let sequencia = e.getAttribute('data-sequencia');
     let consumo = e.getAttribute('data-consumo');
+    let referencia = e.getAttribute('data-referencia');
+    let cor = e.getAttribute('data-cor');
+    let material = e.getAttribute('data-material');
     let grade = e.getAttribute('data-grade') == 0 ? null : e.getAttribute('data-grade');    
 
 
@@ -52,6 +55,9 @@ function getEditOptions(e) {
     $("#grade-edit").val(grade)
     $("#sequencia-edit").val(sequencia)
     $("#consumo-edit").val(consumo)
+    $("#referencia-edit").val(referencia)
+    $("#cor-edit").val(cor)
+    $("#material-edit").val(material)
 
     // GRADES
 
@@ -94,7 +100,7 @@ function getEditOptions(e) {
 
 
 function deleteModal(e) {
-
+    
     let route = e.getAttribute('data-route')
     let id = e.getAttribute('data-id')
     $("#id-delete").val(id) 
@@ -102,7 +108,11 @@ function deleteModal(e) {
     // titulo do modal com nome do item
     $.getJSON(`${route}/${id}`, (data) => {
         console.log(data)
-        if(data.nome) $(".modal-delete-title").text(data.nome)
-        else if(data.material.nome) $(".modal-delete-title").text(data.material.nome)
+        data.nome ? $(".modal-delete-title").text(data.nome) :
+        data.material ? $(".modal-delete-title").text(data.material.nome) :
+        data.referencia && data.cor ? $(".modal-delete-title").text(data.referencia.codigo + ' ' + data.cor.nome) :
+        data.id ? $(".modal-delete-title").text('GRADE ' + data.id) :
+        console.log('nao')
+
     })
 }

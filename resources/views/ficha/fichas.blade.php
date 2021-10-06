@@ -4,14 +4,15 @@
     
     <div class="card border">
         <div class="card-body">
-            {{-- <h5 class="card-title">Cadastro de fichas</h5> --}}
+            <h5 class="card-title">Ficha técnica</h5>
+            <h5 class="card-title">{{$sku->referencia->linha->nome}}</h5>
             <h5 class="card-title">{{$sku->referencia->codigo}} {{$sku->cor->nome}}</h5>
 
                 <table class="table table-ordered table-hover" id="tabelaLinhas">
                     <thead>
                         <tr>
                             <th>Sequência</th>
-                            <th>Categoria</th>
+                            {{-- <th>Categoria</th> --}}
                             <th>Material</th>
                             <th>Consumo</th>
                             <th>Ações</th>
@@ -24,7 +25,7 @@
                         
                             <tr>
                                 <td>{{$item->sequencia}}</td>
-                                <td>{{$item->material->categoria->nome}}</td>
+                                {{-- <td>{{$item->material->categoria->nome}}</td> --}}
                                 <td>{{$item->material->nome}}</td>
                                 <td>{{$item->consumo}}</td>
 
@@ -33,16 +34,14 @@
                                        data-toggle="modal" 
                                        data-target="#modal-edit"
                                        data-id={{$item->id}}                                       
-                                       data-nome="{{$item->nome}}" 
+                                       data-material="{{$item->material_id}}" 
                                        data-sequencia="{{$item->sequencia}}" 
                                        data-consumo="{{$item->consumo}}" 
-                                       data-codigo="{{$item->codigo}}" 
                                        onclick=getEditOptions(this)                                   
                                     >
                                        Editar
                                    </a>
 
-                                    {{-- <a  class="btn btn-sm btn-danger {{count($item->referencias) > 0 ? 'disabled' : ''}}"  --}}
                                     <a  class="btn btn-sm btn-danger" 
                                         data-toggle="modal" 
                                         data-target="#modal-delete"

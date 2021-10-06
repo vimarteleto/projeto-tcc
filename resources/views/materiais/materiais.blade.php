@@ -48,20 +48,20 @@
                                 
                                 <td>
                                     <a class="btn btn-sm btn-primary" 
-                                       data-toggle="modal" 
-                                       data-target="#modal-edit"
-                                       data-id={{$material->id}}                                       
-                                       data-categoria={{$material->categoria->id}}                                       
-                                       data-nome="{{$material->nome}}"   
-                                       data-unidade={{$material->unidade->id}} 
-                                       data-preco="{{$material->preco}}"                                     
-                                       data-grade={{$material->grade ? $material->grade->id : 0}}  
-                                       onclick=getEditOptions(this)                            
+                                        data-toggle="modal" 
+                                        data-target="#modal-edit"
+                                        data-id={{$material->id}}                                       
+                                        data-categoria={{$material->categoria->id}}                                       
+                                        data-nome="{{$material->nome}}"   
+                                        data-unidade={{$material->unidade->id}} 
+                                        data-preco="{{$material->preco}}"                                     
+                                        data-grade={{$material->grade ? $material->grade->id : 0}}  
+                                        onclick=getEditOptions(this)
                                     >
                                        Editar
                                    </a>
 
-                                    <a  class="btn btn-sm btn-danger" 
+                                   <a   class="btn btn-sm btn-danger {{count($material->fichas) > 0 ? 'disabled' : ''}}"
                                         data-toggle="modal" 
                                         data-target="#modal-delete"
                                         data-id={{$material->id}}

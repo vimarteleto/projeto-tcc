@@ -2,6 +2,7 @@
 
 namespace App\Models\Materiais;
 
+use App\Models\FichaTecnica\Ficha;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,5 +26,10 @@ class Material extends Model
     public function grade()
     {
         return $this->belongsTo(Grade::class);
+    }
+
+    public function fichas()
+    {
+        return $this->hasMany(Ficha::class);
     }
 }

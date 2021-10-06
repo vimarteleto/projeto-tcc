@@ -30,7 +30,7 @@ class CorController extends Controller
 
     public function show($id)
     {
-        $cor = Cor::find($id);
+        $cor = Cor::with('skus')->find($id);
         return $cor->toJson();  
     }
 

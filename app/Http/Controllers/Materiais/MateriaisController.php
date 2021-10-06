@@ -82,7 +82,7 @@ class MateriaisController extends Controller
     // retorna um registro em especifico, incluindo relacionamentos
     public function show($id)
     {
-        $material = Material::where('id',$id)->with('categoria', 'unidade', 'grade')->first();
+        $material = Material::where('id',$id)->with('categoria', 'unidade', 'grade', 'fichas')->first();
         return $material->toJson();  
     }
 

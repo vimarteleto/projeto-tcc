@@ -58,10 +58,22 @@
                                         data-toggle="modal" 
                                         data-target="#modal-duplicate"
                                         data-id={{$sku->id}}
+                                        data-referencia={{$sku->referencia_id}}
+                                        data-cor={{$sku->cor_id}}
                                         data-route="skus"
-                                        onclick=getEditOptions(this)
+                                        onclick='getEditOptions(this)'
                                     >
                                         Duplicar
+                                    </a>
+
+                                    <a  class="btn btn-sm btn-danger" 
+                                        data-toggle="modal" 
+                                        data-target="#modal-delete"
+                                        data-id={{$sku->id}}
+                                        data-route="skus"
+                                        onclick=deleteModal(this)
+                                    >
+                                        Excluir
                                     </a>
                                 </td>
                             </tr>
@@ -119,7 +131,7 @@
                 <form action="/skus/duplicate" method="POST" id="form-store" class="form-horizontal">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title">Novo SKU</h5>
+                        <h5 class="modal-title">Duplicar ficha técnica</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="id-duplicate" name="id" class="form-control">  
@@ -127,14 +139,14 @@
                         <div class="form-group">
                             <label for="nome" class="form-check-label">Referência</label>
                             <div class="input-group">
-                                <select name="referencia_id" id="referencia" class="form-control referencia"></select>
+                                <select name="referencia_id" id="referencia-edit" class="form-control referencia"></select>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="nome" class="form-check-label">Cor</label>
                             <div class="input-group">
-                                <select name="cor_id" id="cor" class="form-control cor"></select>
+                                <select name="cor_id" id="cor-edit" class="form-control cor"></select>
                             </div>
                         </div>
                         
@@ -148,7 +160,7 @@
         </div>
     </div> 
 
-    {{-- modal de confirmacao de exclusao
+    {{-- modal de confirmacao de exclusao --}}
     <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color:white">
@@ -168,7 +180,7 @@
             </form>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     
 

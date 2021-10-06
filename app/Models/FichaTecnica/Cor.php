@@ -11,4 +11,10 @@ class Cor extends Model
 
     protected $guarded = [];
     protected $table = 'cores';
+    
+
+    public function skus()
+    {
+        return $this->hasMany(CorReferencia::class);
+    }
 }

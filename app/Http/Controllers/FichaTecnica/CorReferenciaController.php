@@ -21,17 +21,17 @@ class CorReferenciaController extends Controller
         if(isset($request->id)) {
             $sku = CorReferencia::find($request->id);
             $sku->update($request->all());
-            return redirect('/skus')->with(['warning' => 'CorReferencia atualizada com sucesso!']);
+            return redirect('/skus')->with(['warning' => 'SKU atualizado com sucesso!']);
 
         } else {
             CorReferencia::create($request->all());
-            return redirect('/skus')->with(['success' => 'CorReferencia cadastrada com sucesso!']);
+            return redirect('/skus')->with(['success' => 'SKU cadastrado com sucesso!']);
         }
     }
 
     public function show($id)
     {
-        $sku = CorReferencia::find($id);
+        $sku = CorReferencia::with('cor', 'referencia.linha')->find($id);
         return $sku->toJson();  
     }
 
@@ -41,7 +41,7 @@ class CorReferenciaController extends Controller
         if (isset($sku)) {
             $sku->delete();
         }
-        return redirect('/skus')->with(['danger' => 'CorReferencia excluída com sucesso!']);
+        return redirect('/skus')->with(['danger' => 'SKU excluído com sucesso!']);
     }
 
     /////////////////////////////////////////////
@@ -76,10 +76,8 @@ class CorReferenciaController extends Controller
 
     public function duplicate(Request $request)
     {
-        $sku = CorReferencia::create($request->except('id')); // ???????????????????????????????
-        dd($sku->id); // ????????????????????????????????????????????????????????????????????????
+        $sku = CorReferencia::create($request->except('id'));
         $itens = Ficha::where('cor_referencia_id', $request->id)->get();
-
 
         foreach($itens as $item) {
             Ficha::create([
@@ -89,6 +87,8 @@ class CorReferenciaController extends Controller
                 'cor_referencia_id' => $sku->id
             ]);
         }
+
+        return redirect('/fichas'.'/'.$sku->id)->with(['success' => 'Ficha duplicada com sucesso!']);
 
 
     }

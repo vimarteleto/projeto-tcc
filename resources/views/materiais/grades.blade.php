@@ -4,8 +4,8 @@
     <style>
         .line-number {
             line-height: 2.5;
-            padding-right: 2px;
-            padding-bottom: 2px
+            padding-right: 3px;
+            padding-bottom: 3px
         
         }
     </style>
@@ -245,7 +245,7 @@
                 <form action="grades" method="POST" id="form-store" class="form-horizontal">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title">Nova grade</h5>
+                        <h5 class="modal-title">Editar grade</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="id-edit" name="id" class="form-control">                   
@@ -375,7 +375,7 @@
             <div class="modal-content" style="background-color:white">
             <form action="grades/excluir" id="form-categoria" class="form-horizontal">
             <div class="modal-header">
-                <h5 class="modal-title">Grade</h5>
+                <h5 class="modal-delete-title"></h5>
             </div>          
 
             <div class="modal-body">                
