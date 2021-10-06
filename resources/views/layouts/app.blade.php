@@ -21,7 +21,9 @@
 
     {{--    linkando a pagina de estilo no diretorio public--}}
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <title>Cadastro de produtos</title>
+    <script src="{{asset('js/scripts.js')}}"></script>
+
+    <title>Cadastro de {{$current}}</title>
 </head>
 <body>
     <div class="container">

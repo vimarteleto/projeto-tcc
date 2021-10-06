@@ -33,34 +33,40 @@
                                 <td>
                                     <div class="custom-control custom-switch">
                                             <input 
-                                                data-item-switch={{$material->id}} 
+                                                data-id={{$material->id}} 
+                                                data-route="materiais"
                                                 type="checkbox" 
                                                 class="custom-control-input" 
                                                 id="switch{{$material->id}}"
                                                 {{$material->status == 1 ? 'checked' : ''}}
-                                            >                                    
+                                                onclick=statusChange(this)
+                                                
+                                            >                               
                                             <label class="custom-control-label" for="switch{{$material->id}}"></label>
                                     </div>
                                 </td>
                                 
                                 <td>
-                                    <a class="btn btn-sm btn-primary btn-modal-edit" 
-                                       data-toggle="modal" 
-                                       data-target="#modal-edit"
-                                       data-item-id={{$material->id}}                                       
-                                       data-item-categoria={{$material->categoria->id}}                                       
-                                       data-item-nome="{{$material->nome}}"   
-                                       data-item-unidade={{$material->unidade->id}} 
-                                       data-item-preco="{{$material->preco}}"                                     
-                                       data-item-grade={{$material->grade ? $material->grade->id : ''}}                                     
+                                    <a class="btn btn-sm btn-primary" 
+                                        data-toggle="modal" 
+                                        data-target="#modal-edit"
+                                        data-id={{$material->id}}                                       
+                                        data-categoria={{$material->categoria->id}}                                       
+                                        data-nome="{{$material->nome}}"   
+                                        data-unidade={{$material->unidade->id}} 
+                                        data-preco="{{$material->preco}}"                                     
+                                        data-grade={{$material->grade ? $material->grade->id : 0}}  
+                                        onclick=getEditOptions(this)
                                     >
                                        Editar
                                    </a>
 
-                                    <a class="btn btn-sm btn-danger btn-modal-delete" 
+                                   <a   class="btn btn-sm btn-danger {{count($material->fichas) > 0 ? 'disabled' : ''}}"
                                         data-toggle="modal" 
                                         data-target="#modal-delete"
-                                        data-item-id={{$material->id}}
+                                        data-id={{$material->id}}
+                                        data-route="materiais"
+                                        onclick=deleteModal(this)
                                     >
                                         Excluir
                                     </a>
@@ -206,7 +212,7 @@
             <div class="modal-content" style="background-color:white">
             <form action="materiais/excluir" class="form-horizontal">
             <div class="modal-header">
-                <h5 class="modal-title"></h5>
+                <h5 class="modal-delete-title"></h5>
             </div>          
 
             <div class="modal-body modal-delete">                
@@ -237,93 +243,10 @@
         })
 
         // carregamento das options via request
-        $(document).ready(function() {
-
-            $.getJSON('categorias/index', (data) => {
-                for(let i = 0; i < data.length; i++) {
-                    let option = `<option value="${data[i].id}">${data[i].nome}</option>`
-
-                    // classe nos inputs select para o modal de criacao e edicao
-                    $('.categoria').append(option)
-                }
-            })
-
-            $.getJSON('unidades/index', (data) => {
-                for(let i = 0; i < data.length; i++) {
-                    let option = `<option value="${data[i].id}">${data[i].sigla}</option>`
-                    
-                    $('.unidade').append(option)
-
-                }
-            })
-
-            $.getJSON('grades/index', (data) => {
-                for(let i = 0; i < data.length; i++) {
-                    let option = `<option value="${data[i].id}">${data[i].id}</option>`
-
-                    $('.grade').append(option)
-
-                }
-            })
-        })
-
-        //////////////////////////////////////////////////////////
-        
-        // clique no botao editar
-        $(".btn-modal-edit").on('click', function() {
-            // capturando o valor de data-item-id
-            let id = $(this).data('item-id')   
-            let categoria = $(this).data('item-categoria')   
-            let nome = $(this).data('item-nome')   
-            let unidade = $(this).data('item-unidade')   
-            let preco = $(this).data('item-preco')   
-            let grade = $(this).data('item-grade')   
-
-            // passando o valor par ao input hidden       
-            $("#id-edit").val(id)       
-            $("#categoria-edit").val(categoria)       
-            $("#nome-edit").val(nome)       
-            $("#unidade-edit").val(unidade)       
-            $("#preco-edit").val(preco)       
-            $("#grade-edit").val(grade)     
-
-        })             
-
-        ////////////////////////////////////////////////
-
-        // metodo de exclusao    
-        $(".btn-modal-delete").on('click', function() {
-            let id = $(this).data('item-id') 
-            $("#id-delete").val(id) 
-
-            // titulo do modal com nome do item
-            $.getJSON(`materiais/${id}`, (data) => {
-                $(".modal-title").text(data.nome)
-            })            
-
-            // MANIPULACAO DO BODY DO MODAL DE DELETE ???
-            // if(CONDICAO)  {
-            //     $(".modal-delete").text(
-            //         `TEXTO` 
-            //     )
-            // } else {
-            //     $(".modal-delete").text(
-            //         `TEXTO` 
-            //     )
-            // }
-        })
-
-        ////////////////////////////////////////////////
-
-        // inativacao via switch
-        $(".custom-control-input").on('click', function() {
-            let id = $(this).data('item-switch')
-            console.log(id)
-
-            $.post(`materiais/status/${id}`, (data) => {
-                console.log(data)
-            })
-        })
+        // getSelectOptions(route, option, selector)
+        getSelectOptions('categorias', 'nome', 'categoria')
+        getSelectOptions('unidades', 'sigla', 'unidade')
+        getSelectOptions('grades', 'id', 'grade')
 
     </script>
 @endsection

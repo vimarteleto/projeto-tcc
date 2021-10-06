@@ -26,8 +26,11 @@
                 {{-- materiais --}}
                 <div class="card border border-danger">
                     <div class="card-body">
-                        <h5 class="card-title">Cadastro</h5>
-                        <a href="/#" class="btn btn-primary btn-danger">Cadastre</a>
+                        <h5 class="card-title">Produtos</h5>
+                        <a href="/skus" class="btn btn-primary btn-danger">Fichas Técnincas</a><br>
+                        <a href="/linhas" class="btn btn-primary btn-danger">Linhas</a><br>
+                        <a href="/referencias" class="btn btn-primary btn-danger">Referências</a><br>
+                        <a href="/cores" class="btn btn-primary btn-danger">Cores</a><br>
                     </div>
                 </div>
 
