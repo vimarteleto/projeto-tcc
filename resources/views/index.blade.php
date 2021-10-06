@@ -24,12 +24,12 @@
                 </div>
 
                 {{-- materiais --}}
-                <div class="card border border-danger">
+                {{-- <div class="card border border-danger">
                     <div class="card-body">
                         <h5 class="card-title">Cadastro</h5>
                         <a href="/#" class="btn btn-primary btn-danger">Cadastre</a>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>
