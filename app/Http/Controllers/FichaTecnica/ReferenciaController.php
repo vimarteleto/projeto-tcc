@@ -11,7 +11,7 @@ class ReferenciaController extends Controller
     
     public function index()
     {
-        $referencias = Referencia::all();
+        $referencias = Referencia::where('status', 1)->get();
         return $referencias->toJson();        
     }
 

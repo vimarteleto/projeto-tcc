@@ -6,7 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Cadastro de referências</h5>
 
-                <table class="table table-ordered table-hover">
+                <table class="table table-sm table-ordered table-hover">
                     <thead>
                         <tr>
                             <th>Linha</th>

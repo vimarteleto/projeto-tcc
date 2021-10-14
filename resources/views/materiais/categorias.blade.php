@@ -7,7 +7,7 @@
         <div class="card-body">
             <h5 class="card-title">Cadastro de categorias de matéria-prima</h5>
 
-                <table class="table table-ordered table-hover" id="tabelaCategorias">
+                <table class="table table-sm table-ordered table-hover" id="tabelaCategorias">
                     <thead>
                         <tr>
                             <th>Cógido</th>

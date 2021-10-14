@@ -5,16 +5,17 @@
     <div class="card border">
         <div class="card-body">
             <h5 class="card-title">Ficha técnica</h5>
-            <h5 class="card-title">{{$sku->referencia->linha->nome}}</h5>
+            {{-- <h5 class="card-title">{{$sku->referencia->linha->nome}}</h5> --}}
             <h5 class="card-title">{{$sku->referencia->codigo}} {{$sku->cor->nome}}</h5>
 
-                <table class="table table-ordered table-hover" id="tabelaLinhas">
+                <table class="table table-sm table-ordered table-hover" id="tabelaLinhas">
                     <thead>
                         <tr>
                             <th>Sequência</th>
                             {{-- <th>Categoria</th> --}}
                             <th>Material</th>
                             <th>Consumo</th>
+                            <th>Unidade</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -28,6 +29,7 @@
                                 {{-- <td>{{$item->material->categoria->nome}}</td> --}}
                                 <td>{{$item->material->nome}}</td>
                                 <td>{{$item->consumo}}</td>
+                                <td>{{$item->material->unidade->sigla}}</td>
 
                                 <td>
                                     <a class="btn btn-sm btn-primary btn-modal-edit" 
