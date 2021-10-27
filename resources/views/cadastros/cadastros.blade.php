@@ -267,7 +267,7 @@
                     @method('PUT')
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title">Novo cadastro</h5>
+                        <h5 class="modal-title">Detalhes de cadastro</h5>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">

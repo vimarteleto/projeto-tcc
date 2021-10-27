@@ -149,7 +149,7 @@ function deleteModal(e) {
 }
 
 
-// AUTO COMPLETE DE CEP
+// SERVICE CONSULTA CEP
 
 function searchCep(value) {
     let cep = value.replace(/\D/g, '');
@@ -174,7 +174,7 @@ function searchCep(value) {
 }
 
 
-// AUTO COMPLETE CNPJ
+// SERVICE CONSULTA CNPJ
 
 function searchCnpj(value) {
     let cnpj = value.replace(/\D/g, '');
@@ -196,7 +196,7 @@ function searchCnpj(value) {
 
 };
 
-// AUTO COMPLETE IE
+// SERVICE CONSULTA IE
 
 function searchIe() {
 
@@ -219,6 +219,7 @@ function searchIe() {
                     for (let i = 0; i < data.registrations.length; i++) {
                         if (data.registrations[i].enabled == true) {
                             document.getElementById('ie').value = data.registrations[i].number
+                            break
                         }
                         
                     }
