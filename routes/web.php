@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Cadastros\CadastroController;
 use App\Http\Controllers\Estoque\EstoqueController;
 use App\Http\Controllers\FichaTecnica\CorController;
 use App\Http\Controllers\FichaTecnica\CorReferenciaController;
@@ -87,7 +88,6 @@ Route::get('/cores/excluir', [CorController::class, 'destroy']);
 Route::get('/cores/{id}', [CorController::class, 'show']);
 // Route::post('/cores/status/{id}', [CorController::class, 'status']);
 
-
 // skus
 Route::get('/skus', [CorReferenciaController::class, 'view']);
 Route::get('/skus/index', [CorReferenciaController::class, 'index']); 
@@ -97,8 +97,6 @@ Route::post('/skus/status/{id}', [CorReferenciaController::class, 'status']);
 Route::post('/skus/duplicate', [CorReferenciaController::class, 'duplicate']);
 Route::get('/skus/{id}', [CorReferenciaController::class, 'show']);
 
-
-
 // fichas
 Route::get('/fichas/{id}', [FichaController::class, 'view']);
 Route::get('/fichas/index', [FichaController::class, 'index']); 
@@ -106,3 +104,12 @@ Route::post('/fichas', [FichaController::class, 'store']);
 Route::get('/fichas/fichas/excluir', [FichaController::class, 'destroy']);
 Route::get('/fichas/fichas/{id}', [FichaController::class, 'show']);
 Route::post('/fichas/status/{id}', [FichaController::class, 'status']);
+
+// cadastros
+Route::get('/cadastros', [CadastroController::class, 'view']);
+Route::get('/cadastros/index', [CadastroController::class, 'index']); 
+Route::post('/cadastros', [CadastroController::class, 'store']); 
+Route::put('/cadastros', [CadastroController::class, 'store']); 
+Route::get('/cadastros/cadastros/excluir', [CadastroController::class, 'destroy']);
+Route::get('/cadastros/cadastros/{id}', [CadastroController::class, 'show']);
+Route::post('/cadastros/status/{id}', [CadastroController::class, 'status']);

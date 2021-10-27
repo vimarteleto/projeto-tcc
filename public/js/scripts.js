@@ -1,4 +1,3 @@
-
 function statusChange(e) {   
 
     let id = e.getAttribute('data-id'); 
@@ -16,7 +15,7 @@ function getSelectOptions(route, option, selector) {
     $.getJSON(`${route}/index`, (data) => {
 
         for(let i = 0; i < data.length; i++) {
-            let options = `<option value="${data[i].id}">${data[i][(option)]}</option>`
+            let options = `<option value = "${data[i].id}">${data[i][(option)]}</option>`
 
             // classe nos inputs select para o modal de criacao e edicao
             $(`.${selector}`).append(options)
@@ -26,7 +25,7 @@ function getSelectOptions(route, option, selector) {
 
 
 function getEditOptions(e) {
-
+    console.log('oie')
     let id = e.getAttribute('data-id');
     let categoria = e.getAttribute('data-categoria');
     let nome = e.getAttribute('data-nome');
@@ -94,7 +93,39 @@ function getEditOptions(e) {
     $("#numero_45-edit").val(numero_45)
     $("#numero_46-edit").val(numero_46)
     $("#numero_47-edit").val(numero_47)
-    $("#numero_48-edit").val(numero_48)        
+    $("#numero_48-edit").val(numero_48)       
+    
+    // CADASTROS
+
+    let ie = e.getAttribute('data-ie');
+    let pessoa = e.getAttribute('data-pessoa');
+    let tipo = e.getAttribute('data-tipo');
+    let fantasia = e.getAttribute('data-fantasia');
+    let cep = e.getAttribute('data-cep');
+    let logradouro = e.getAttribute('data-logradouro');
+    let numero = e.getAttribute('data-numero');
+    let bairro = e.getAttribute('data-bairro');
+    let complemento = e.getAttribute('data-complemento');
+    let cidade = e.getAttribute('data-cidade');
+    let uf = e.getAttribute('data-uf');
+    let telefone = e.getAttribute('data-telefone');
+    let celular = e.getAttribute('data-celular');
+    let email = e.getAttribute('data-email');
+
+    $("#ie-edit").val(ie)
+    $("#pessoa-edit").val(pessoa)
+    $("#tipo-edit").val(tipo)
+    $("#fantasia-edit").val(fantasia)
+    $("#cep-edit").val(cep)
+    $("#logradouro-edit").val(logradouro)
+    $("#numero-edit").val(numero)
+    $("#bairro-edit").val(bairro)
+    $("#complemento-edit").val(complemento)
+    $("#cidade-edit").val(cidade)
+    $("#uf-edit").val(uf)
+    $("#telefone-edit").val(telefone)
+    $("#celular-edit").val(celular)
+    $("#email-edit").val(email)
 
 }
 
@@ -116,3 +147,83 @@ function deleteModal(e) {
 
     })
 }
+
+
+// AUTO COMPLETE DE CEP
+
+function searchCep(value) {
+    let cep = value.replace(/\D/g, '');
+    if (cep != '') {
+        let validCep = /^[0-9]{8}$/;
+        if(validCep.test(cep)) {
+            $.ajax({
+                type: 'GET',
+                crossDomain: true,
+                dataType: 'jsonp',
+                url: 'https://viacep.com.br/ws/' + cep + '/json',
+                success: function(data){
+                    document.getElementById('logradouro').value = (data.logradouro.toUpperCase())
+                    document.getElementById('bairro').value = (data.bairro.toUpperCase())
+                    document.getElementById('cidade').value = (data.localidade.toUpperCase())
+                    document.getElementById('uf').value = (data.uf)
+                }
+            })
+
+        } 
+    }
+}
+
+
+// AUTO COMPLETE CNPJ
+
+function searchCnpj(value) {
+    let cnpj = value.replace(/\D/g, '');
+    if (cnpj != '') {
+        let validCnpj = /^[0-9]{14}$/;
+        if(validCnpj.test(cnpj)) {
+            $.ajax({
+                type: 'GET',
+                crossDomain: true,
+                dataType: 'jsonp',
+                url: 'https://www.receitaws.com.br/v1/cnpj/' + cnpj,
+                success: function(data){
+                    document.getElementById('nome').value = (data.nome.toUpperCase());
+                    document.getElementById('pessoa').value = ('PJ');
+                }
+            })
+        } 
+    } 
+
+};
+
+// AUTO COMPLETE IE
+
+function searchIe() {
+
+    let cep = document.getElementById('cep').value
+    let cnpj = document.getElementById('id').value
+    let ufOption = document.getElementById("uf");
+    let uf = ufOption.options[ufOption.selectedIndex].value;
+
+    if (cnpj != '' && cep != '') {
+        let validCnpj = /^[0-9]{14}$/;
+        let validCep = /^[0-9]{8}$/;
+        if(validCnpj.test(cnpj) && validCep.test(cep)) {
+            $.ajax({
+                type: 'GET',
+                headers: {
+                    "Authorization": "5ac425e7-d034-48e0-8179-0841bc4c5352-6b7444ec-9723-4b3f-825f-f4001dce6291"
+                },
+                url: 'https://api.cnpja.com/office/' + cnpj + '?registrations=' + uf,
+                success: function(data){
+                    for (let i = 0; i < data.registrations.length; i++) {
+                        if (data.registrations[i].enabled == true) {
+                            document.getElementById('ie').value = data.registrations[i].number
+                        }
+                        
+                    }
+                }
+            })
+        } 
+    } 
+};
