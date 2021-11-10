@@ -16,6 +16,7 @@ class AddColumnOnReferenciasTable extends Migration
         Schema::table('referencias', function (Blueprint $table) {
 
             $table->string('codigo', 4)->after('id');
+            $table->float('peso')->after('linha_id');
 
         });
     }

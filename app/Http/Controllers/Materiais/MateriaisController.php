@@ -34,7 +34,7 @@ class MateriaisController extends Controller
             } elseif($material->grade == null && $request->grade_id == null) {
                 $estoque = Estoque::where('material_id', $material->id)->first();
                 $estoque->update([
-                    'material' => $request->nome,
+                    'descricao' => $request->nome,
                 ]);
                 
             } elseif ($material->grade->id == $request->grade_id) {                
@@ -51,11 +51,11 @@ class MateriaisController extends Controller
                     if(count($grades) > 0) {
                         foreach($grades as $grade) {
                             $estoque = Estoque::where('material_id', $material->id)
-                                ->where('material', 'like', '%'.$grade)
+                                ->where('descricao', 'like', '%'.$grade)
                             ->first();
 
                             $estoque->update([
-                                'material' => $request->nome . ' ' . $grade,
+                                'descricao' => $request->nome . ' ' . $grade,
                             ]);
                         }
                     }

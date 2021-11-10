@@ -17,6 +17,7 @@ class CreateCorReferenciaTable extends Migration
             $table->id();
             $table->unsignedBigInteger('cor_id');
             $table->unsignedBigInteger('referencia_id');
+            $table->float('preco');
 
             $table->unique(['cor_id', 'referencia_id']);
 

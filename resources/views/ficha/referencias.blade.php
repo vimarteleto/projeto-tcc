@@ -48,6 +48,7 @@
                                        data-codigo="{{$referencia->codigo}}"
                                        data-nome="{{$referencia->nome}}"   
                                        data-linha={{$referencia->linha->id}} 
+                                       data-peso={{$referencia->peso}} 
                                        onclick=getEditOptions(this)                            
                                     >
                                        Editar
@@ -94,7 +95,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="form-check-label">Código</label>
+                            <label for="codigo" class="form-check-label">Código</label>
                             <div class="input-group">
                                 <input name="codigo" type="text" class="form-control" id="codigo" placeholder="Código da referência" required>
                             </div>
@@ -104,6 +105,13 @@
                             <label for="nome" class="form-check-label">Descrição</label>
                             <div class="input-group">
                                 <input name="nome" type="text" class="form-control" id="nome" placeholder="Descrição da referência" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="peso" class="form-check-label">Peso (kg)</label>
+                            <div class="input-group">
+                                <input name="peso" type="text" class="form-control" id="peso" placeholder="Peso do produto em kilogramas" required>
                             </div>
                         </div>
                         
@@ -136,7 +144,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="form-check-label">Código</label>
+                            <label for="codigo" class="form-check-label">Código</label>
                             <div class="input-group">
                                 <input name="codigo" type="text" class="form-control codigo" id="codigo-edit" required>
                             </div>
@@ -146,6 +154,13 @@
                             <label for="nome" class="form-check-label">Descrição</label>
                             <div class="input-group">
                                 <input name="nome" type="text" class="form-control nome" id="nome-edit" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="peso" class="form-check-label">Peso (kg)</label>
+                            <div class="input-group">
+                                <input name="peso" type="text" class="form-control peso" id="peso-edit" placeholder="Peso do produto em kilogramas" required>
                             </div>
                         </div>
                         
@@ -199,6 +214,8 @@
         // getSelectOptions(route, option, selector)
         getSelectOptions('linhas', 'nome', 'linha')
 
+        // valor padrao para peso
+        $("#peso").val('0.700')
 
     </script>
 @endsection

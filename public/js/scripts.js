@@ -26,28 +26,30 @@ function getSelectOptions(route, option, selector) {
 
 function getEditOptions(e) {
     console.log('oie')
-    let id = e.getAttribute('data-id');
-    let categoria = e.getAttribute('data-categoria');
-    let nome = e.getAttribute('data-nome');
-    let unidade = e.getAttribute('data-unidade');
-    let preco = e.getAttribute('data-preco');
-    let sigla = e.getAttribute('data-sigla');
-    let codigo = e.getAttribute('data-codigo');
-    let linha = e.getAttribute('data-linha');
-    let sequencia = e.getAttribute('data-sequencia');
-    let consumo = e.getAttribute('data-consumo');
-    let referencia = e.getAttribute('data-referencia');
-    let cor = e.getAttribute('data-cor');
-    let material = e.getAttribute('data-material');
-    let grade = e.getAttribute('data-grade') == 0 ? null : e.getAttribute('data-grade');    
+    let id = e.getAttribute('data-id')
+    let categoria = e.getAttribute('data-categoria')
+    let nome = e.getAttribute('data-nome')
+    let peso = e.getAttribute('data-peso')
+    let unidade = e.getAttribute('data-unidade')
+    let preco = e.getAttribute('data-preco')
+    let sigla = e.getAttribute('data-sigla')
+    let codigo = e.getAttribute('data-codigo')
+    let linha = e.getAttribute('data-linha')
+    let sequencia = e.getAttribute('data-sequencia')
+    let consumo = e.getAttribute('data-consumo')
+    let referencia = e.getAttribute('data-referencia')
+    let cor = e.getAttribute('data-cor')
+    let material = e.getAttribute('data-material')
+    let grade = e.getAttribute('data-grade') == 0 ? null : e.getAttribute('data-grade')    
 
 
-    $("#id-edit").val(id)       
-    $("#id-duplicate").val(id)       
-    $("#categoria-edit").val(categoria)       
+    $("#id-edit").val(id)  
+    
+    $("#categoria-edit").val(categoria)
     $("#nome-edit").val(nome)       
-    $("#unidade-edit").val(unidade)       
+    $("#peso-edit").val(peso)       
     $("#preco-edit").val(preco)       
+    $("#unidade-edit").val(unidade)       
     $("#codigo-edit").val(codigo)
     $("#sigla-edit").val(sigla)
     $("#linha-edit").val(linha)
@@ -57,6 +59,7 @@ function getEditOptions(e) {
     $("#referencia-edit").val(referencia)
     $("#cor-edit").val(cor)
     $("#material-edit").val(material)
+    
 
     // GRADES
 
@@ -126,6 +129,13 @@ function getEditOptions(e) {
     $("#telefone-edit").val(telefone)
     $("#celular-edit").val(celular)
     $("#email-edit").val(email)
+
+    // duplicate
+
+    $("#id-duplicate").val(id)
+    $("#referencia-duplicate").val(referencia)
+    $("#cor-duplicate").val(cor)
+    $("#preco-duplicate").val(preco)
 
 }
 
@@ -228,3 +238,72 @@ function searchIe() {
         } 
     } 
 };
+
+// ADICIONAR ITEM AO PEDIDO
+
+function addItemRow() {
+
+    let row = document.createElement('div')
+    document.getElementById('contador-hidden').value++
+    let n = parseInt(document.getElementById('contador-hidden').value)
+    row.innerHTML = `
+        <div class="form-group">
+            <div class="row">
+                <div class="col-2">
+                    <div class="input-group">
+                        <select name="referencia_id_${n}" id="referencia_id_${n}" class="form-control pessoa">
+                            <option value="">REFERENCIAS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="input-group">
+                        <select name="cor_id_${n}" id="cor_id_${n}" class="form-control pessoa">
+                            <option value="">COR</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <table>
+                        <tr>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                            <td><input type="text" style="width: 30px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <input name="quantidade_item_${n}" type="text" class="form-control" id="quantidade_item_${n}" readonly>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <input name="preco_item_${n}" type="text" class="form-control" id="preco_item_${n}" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <input name="desconto_item_${n}" type="text" class="form-control" id="desconto_item_${n}" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <input name="total_item_${n} type="text" class="form-control" id="total_item_${n}" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ` 
+    let element = document.getElementById("itens-pedido");
+    element.appendChild(row);
+}

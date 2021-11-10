@@ -17,7 +17,7 @@ class CreateCadastrosTable extends Migration
             $table->string('id')->primary(); // cpf ou cnpj
             $table->string('ie')->nullable(); // inscrição estadual
             $table->string('pessoa'); // PJ ou PF
-            $table->string('tipo', 1); // 0 outros, 1 cliente, 2 fornecedor
+            $table->string('tipo', 1); // cliente, fornecedor, representante, transportador, outros
             $table->string('nome'); // nome ou razao
             $table->string('fantasia')->nullable(); // fantasia
             $table->string('cep', 8);

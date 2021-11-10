@@ -11,6 +11,7 @@ use App\Http\Controllers\Materiais\CategoriaController;
 use App\Http\Controllers\Materiais\GradeController;
 use App\Http\Controllers\Materiais\MateriaisController;
 use App\Http\Controllers\Materiais\UnidadeController;
+use App\Http\Controllers\Pedidos\PedidoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,6 +93,7 @@ Route::get('/cores/{id}', [CorController::class, 'show']);
 Route::get('/skus', [CorReferenciaController::class, 'view']);
 Route::get('/skus/index', [CorReferenciaController::class, 'index']); 
 Route::post('/skus', [CorReferenciaController::class, 'store']); 
+Route::put('/skus', [CorReferenciaController::class, 'store']); 
 Route::get('/skus/excluir', [CorReferenciaController::class, 'destroy']);
 Route::post('/skus/status/{id}', [CorReferenciaController::class, 'status']);
 Route::post('/skus/duplicate', [CorReferenciaController::class, 'duplicate']);
@@ -105,6 +107,8 @@ Route::get('/fichas/fichas/excluir', [FichaController::class, 'destroy']);
 Route::get('/fichas/fichas/{id}', [FichaController::class, 'show']);
 Route::post('/fichas/status/{id}', [FichaController::class, 'status']);
 
+////////////////////////////////////////////////////////////////
+
 // cadastros
 Route::get('/cadastros', [CadastroController::class, 'view']);
 Route::get('/cadastros/index', [CadastroController::class, 'index']); 
@@ -113,3 +117,12 @@ Route::put('/cadastros', [CadastroController::class, 'store']);
 Route::get('/cadastros/cadastros/excluir', [CadastroController::class, 'destroy']);
 Route::get('/cadastros/cadastros/{id}', [CadastroController::class, 'show']);
 Route::post('/cadastros/status/{id}', [CadastroController::class, 'status']);
+
+// pedidos
+Route::get('/pedidos', [PedidoController::class, 'view']);
+Route::get('/pedidos/index', [PedidoController::class, 'index']); 
+Route::post('/pedidos', [PedidoController::class, 'store']); 
+Route::put('/pedidos', [PedidoController::class, 'store']); 
+Route::get('/pedidos/pedidos/excluir', [PedidoController::class, 'destroy']);
+Route::get('/pedidos/pedidos/{id}', [PedidoController::class, 'show']);
+Route::post('/pedidos/status/{id}', [PedidoController::class, 'status']);

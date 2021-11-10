@@ -116,6 +116,8 @@
                                         <select name="tipo" id="tipo" class="form-control tipo">
                                             <option value="C">Cliente</option>
                                             <option value="F">Fornecedor</option>
+                                            <option value="R">Representante</option>
+                                            <option value="T">Transportador</option>
                                             <option value="O">Outros</option>
                                         </select>
                                     </div>
@@ -150,7 +152,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-2">
-                                    <label for="numero" class="form-check-label">Numero</label>
+                                    <label for="numero" class="form-check-label">Número</label>
                                     <div class="input-group">
                                         <input name="numero" type="text" class="form-control" id="numero" placeholder="Número" required>
                                     </div>
@@ -351,7 +353,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-2">
-                                    <label for="numero" class="form-check-label">Numero</label>
+                                    <label for="numero" class="form-check-label">Número</label>
                                     <div class="input-group">
                                         <input name="numero" type="text" class="form-control" id="numero-edit" placeholder="Número" required>
                                     </div>

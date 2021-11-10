@@ -12,6 +12,7 @@
                             <th>Linha</th>
                             <th>Referência</th>
                             <th>Cor</th>
+                            <th>Preço</th>
                             <th>Status</th>
                             <th>Ações</th>
                         </tr>
@@ -23,6 +24,7 @@
                                 <td>{{$sku->referencia->linha->nome}}</td>
                                 <td>{{$sku->referencia->codigo}}</td>
                                 <td>{{$sku->cor->nome}}</td>
+                                <td>R$ {{$sku->preco}}</td>
 
                                 <td>
                                     <div class="custom-control custom-switch">
@@ -41,7 +43,7 @@
                                 </td>
                                 
                                 <td>
-                                    <a class="btn btn-sm btn-primary" 
+                                    <a class="btn btn-sm btn-dark" 
                                        {{-- data-toggle="modal" 
                                        data-target="#modal-edit"
                                        data-id={{$sku->id}}                                       
@@ -58,12 +60,26 @@
                                         data-toggle="modal" 
                                         data-target="#modal-duplicate"
                                         data-id={{$sku->id}}
+                                        data-preco={{$sku->preco}}
                                         data-referencia={{$sku->referencia_id}}
                                         data-cor={{$sku->cor_id}}
                                         data-route="skus"
                                         onclick='getEditOptions(this)'
                                     >
                                         Duplicar
+                                    </a>
+
+                                    <a  class="btn btn-sm btn-primary" 
+                                        data-toggle="modal" 
+                                        data-target="#modal-edit"
+                                        data-id={{$sku->id}}
+                                        data-preco={{$sku->preco}}
+                                        data-referencia={{$sku->referencia_id}}
+                                        data-cor={{$sku->cor_id}}
+                                        data-route="skus"
+                                        onclick='getEditOptions(this)'
+                                    >
+                                        Editar
                                     </a>
 
                                     <a  class="btn btn-sm btn-danger" 
@@ -101,16 +117,23 @@
                         {{-- <input type="hidden" id="id-edit" name="id" class="form-control">   --}}
 
                         <div class="form-group">
-                            <label for="nome" class="form-check-label">Referência</label>
+                            <label for="referencia" class="form-check-label">Referência</label>
                             <div class="input-group">
                                 <select name="referencia_id" id="referencia" class="form-control referencia"></select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="form-check-label">Cor</label>
+                            <label for="cor" class="form-check-label">Cor</label>
                             <div class="input-group">
                                 <select name="cor_id" id="cor" class="form-control cor"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="preco" class="form-check-label">Preço</label>
+                            <div class="input-group">
+                                <input name="preco" type="text" class="form-control" id="preco" placeholder="Preço de venda do produto" required>
                             </div>
                         </div>
                         
@@ -139,6 +162,50 @@
                         <div class="form-group">
                             <label for="nome" class="form-check-label">Referência</label>
                             <div class="input-group">
+                                <select name="referencia_id" id="referencia-duplicate" class="form-control referencia"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="form-check-label">Cor</label>
+                            <div class="input-group">
+                                <select name="cor_id" id="cor-duplicate" class="form-control cor"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="preco" class="form-check-label">Preço</label>
+                            <div class="input-group">
+                                <input name="preco" type="text" class="form-control preco" id="preco-duplicate" placeholder="Preço de venda do produto" required>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary btn-sm" type="submit">Criar</button>
+                        <button class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> 
+
+    {{-- modal de editar --}}
+    <div class="modal modal-request" tabindex="-1" role="dialog" id="modal-edit">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/skus" method="POST" id="form-store" class="form-horizontal">
+                    @method('PUT')
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edição de SKU</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="id-edit" name="id" class="form-control">  
+
+                        <div class="form-group">
+                            <label for="nome" class="form-check-label">Referência</label>
+                            <div class="input-group">
                                 <select name="referencia_id" id="referencia-edit" class="form-control referencia"></select>
                             </div>
                         </div>
@@ -147,6 +214,13 @@
                             <label for="nome" class="form-check-label">Cor</label>
                             <div class="input-group">
                                 <select name="cor_id" id="cor-edit" class="form-control cor"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="preco" class="form-check-label">Preço</label>
+                            <div class="input-group">
+                                <input name="preco" type="text" class="form-control preco" id="preco-edit" placeholder="Preço de venda do produto" required>
                             </div>
                         </div>
                         
