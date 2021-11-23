@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pedidos;
 use App\Http\Controllers\Controller;
 use App\Models\Pedidos\Pedido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
@@ -17,6 +18,7 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
+        dd($request);
         if($request->getMethod() == 'POST') {
             Pedido::create($request->all());
             return redirect()->back()->with(['success' => 'Cadastro realizado com sucesso!']);
@@ -48,11 +50,8 @@ class PedidoController extends Controller
     public function view()
     {
         $pedidos = Pedido::all();
-            // ->whereRelation('linha', 'status', 1)
-        // ->paginate(10);
-        // ->get();
-
-        return view('pedidos.pedidos', compact('pedidos'));
+        $proximoId = DB::select("SHOW TABLE STATUS LIKE 'pedidos'")[0]->Auto_increment;
+        return view('pedidos.pedidos', compact('pedidos', 'proximoId'));
 
     }
 

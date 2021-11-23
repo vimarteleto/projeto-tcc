@@ -59,20 +59,20 @@
                                 <div class="col">
                                     <label for="id" class="form-check-label">Número do pedido</label>
                                     <div class="input-group">
-                                        <input name="id" type="text" class="form-control" id="id" readonly>
+                                        <input name="id" type="text" class="form-control" id="id" readonly value="{{$proximoId}}">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label for="cliente_id" class="form-check-label">Documento do cliente</label>
                                     <div class="input-group">
-                                        <input name="cliente_id" type="text" class="form-control" id="cliente_id" placeholder="CNPJ do cliente" required>
+                                        <input onblur="getClientById(this.value)" name="cliente_id" type="text" class="form-control" id="cliente_id" placeholder="CNPJ do cliente" required>
                                     </div>
                                 </div>
 
                                 <div class="col-6">
-                                    <label for="nome-cliente" class="form-check-label">Cliente</label>
+                                    <label for="nome_cliente" class="form-check-label">Cliente</label>
                                     <div class="input-group">
-                                        <input name="nome-cliente" type="text" class="form-control" id="nome-cliente" placeholder="Nome ou razão social" required>
+                                        <input name="nome_cliente" type="text" class="form-control nome-cliente" id="nome-cliente-create" placeholder="Razão social do cliente" required>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -143,15 +143,15 @@
                                 <div class="col-6">
                                     <label for="representante_id" class="form-check-label">Representante</label>
                                     <div class="input-group">
-                                        <select name="representante_id" id="representante_id" class="form-control pessoa">
-                                            <option value="">REPRESENTANTES</option>
+                                        <select name="representante_id" id="representante_id" class="form-control representante">
+                                            {{-- <option value="">REPRESENTANTES</option> --}}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label for="marca" class="form-check-label">Marca</label>
                                     <div class="input-group">
-                                        <input name="marca" type="text" class="form-control" id="marca" placeholder="Guilder" required>
+                                        <input name="marca" type="text" class="form-control" id="marca" value="Guilder" required>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -175,8 +175,7 @@
                                 <div class="col-6">
                                     <label for="transportador_id" class="form-check-label">Transportador</label>
                                     <div class="input-group">
-                                        <select name="transportador_id" id="transportador_id" class="form-control pessoa">
-                                            <option value="">TRANSPORTADOR</option>
+                                        <select name="transportador_id" id="transportador_id" class="form-control transportador">
                                         </select>
                                     </div>
                                 </div>
@@ -190,7 +189,7 @@
                                 <div class="col">
                                     <label for="volumes" class="form-check-label">Volumes</label>
                                     <div class="input-group">
-                                        <input name="volumes" type="text" class="form-control" id="volumes" required>
+                                        <input name="volumes" type="text" class="form-control" id="volumes">
                                     </div>
                                 </div>
                             </div>
@@ -205,16 +204,16 @@
                                     <div class="col-2">
                                         <label for="referencia_id" class="form-check-label">Referência</label>
                                         <div class="input-group">
-                                            <select name="referencia_id_1" id="referencia_id_1" class="form-control pessoa">
-                                                <option value="">REFERENCIAS</option>
+                                            <select onblur="getSkuColors(this.value)" name="item[1][referencia]" id="referencia_id_1" class="form-control referencia">
+                                                <option value="" selected disabled>Referência</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <label for="cor_id" class="form-check-label">Cor</label>
                                         <div class="input-group">
-                                            <select name="cor_id_1" id="cor_id_1" class="form-control pessoa">
-                                                <option value="">COR</option>
+                                            <select onblur="getPreco(document.getElementById('referencia_id_1').value, this.value, 1)" name="item[1][cor]" id="cor_id_1" class="form-control cor">
+                                                <option value="" selected disabled>Cor</option>
                                             </select>
                                         </div>
                                     </div>
@@ -235,43 +234,43 @@
                                                 <th>45</th>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
-                                                <td><input type="text" style="width: 30px"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_34]" id="item[1][numero_34]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_35]" id="item[1][numero_35]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_36]" id="item[1][numero_36]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_37]" id="item[1][numero_37]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_38]" id="item[1][numero_38]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_39]" id="item[1][numero_39]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_40]" id="item[1][numero_40]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_41]" id="item[1][numero_41]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_42]" id="item[1][numero_42]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_43]" id="item[1][numero_43]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_44]" id="item[1][numero_44]"></td>
+                                                <td><input value="0" onblur="getTotalPairs(1)" type="text" style="width: 30px" name="item[1][numero_45]" id="item[1][numero_45]"></td>
                                             </tr>
                                         </table>
                                     </div>
                                     <div class="col">
                                         <label for="quantidade_item_1" class="form-check-label">Pares</label>
                                         <div class="input-group">
-                                            <input name="quantidade_item_1" type="text" class="form-control" id="quantidade_item_1" readonly>
+                                            <input name="item[1][quantidade]" type="text" class="form-control" id="quantidade_item_1" readonly>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label for="preco_item_1" class="form-check-label">Preço</label>
                                         <div class="input-group">
-                                            <input name="preco_item_1" type="text" class="form-control" id="preco_item_1" required>
+                                            <input name="item[1][preco]" type="text" class="form-control" id="preco_item_1" readonly>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label for="desconto_item_1" class="form-check-label">Desconto</label>
                                         <div class="input-group">
-                                            <input name="desconto_item_1" type="text" class="form-control" id="desconto_item_1" required>
+                                            <input value="0" name="item[1][desconto]" type="text" class="form-control" id="desconto_item_1" required>
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <label for="total_item_1" class="form-check-label">Total</label>
+                                        <label for="total_item_1" class="form-check-label">Valor</label>
                                         <div class="input-group">
-                                            <input name="total_item_1" type="text" class="form-control" id="total_item_1" readonly>
+                                            <input name="item[1][total]" type="text" class="form-control" id="total_item_1" readonly>
                                         </div>
                                     </div>
                                     
@@ -372,15 +371,11 @@
 
         // carregamento das options via request
         // getSelectOptions(route, option, selector)
-        // getSelectOptions('categorias', 'nome', 'categoria')
+        getSelectOptions('referencias', 'codigo', 'referencia')
+        getSelectOptionsFromRecords('R', 'representante')
+        getSelectOptionsFromRecords('T', 'transportador')
 
 
     </script>
 
-<script>
-    
-    
-
-</script>
-    
 @endsection

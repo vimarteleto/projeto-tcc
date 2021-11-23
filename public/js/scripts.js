@@ -23,9 +23,42 @@ function getSelectOptions(route, option, selector) {
     })
 }
 
+function getSelectOptionsFromRecords(type, selector) {
+
+    $.getJSON(`cadastros/index/${type}`, (data) => {
+
+        for(let i = 0; i < data.length; i++) {
+            let options = `<option value = "${data[i].id}">${data[i].nome}</option>`
+
+            // classe nos inputs select para o modal de criacao e edicao
+            $(`.${selector}`).append(options)
+        }
+    })
+}
+
+function getClientById(id) {
+
+    $.getJSON(`cadastros/cadastros/${id}`, (data) => {
+        $(`.nome-cliente`).val(data.nome)
+    })
+}
+
+function getSkuColors(id, n = 1) {
+
+    $.getJSON(`referencias/${id}`, (data) => {
+        console.log(data)
+        for(let i = 0; i < data.cores.length; i++) {
+
+            let options = `<option value = "${data.cores[i].id}">${data.cores[i].nome}</option>`
+            // classe nos inputs select para o modal de criacao e edicao
+            $(`#cor_id_${n}`).append(options)
+
+        }
+    })
+}
+
 
 function getEditOptions(e) {
-    console.log('oie')
     let id = e.getAttribute('data-id')
     let categoria = e.getAttribute('data-categoria')
     let nome = e.getAttribute('data-nome')
@@ -251,54 +284,54 @@ function addItemRow() {
             <div class="row">
                 <div class="col-2">
                     <div class="input-group">
-                        <select name="referencia_id_${n}" id="referencia_id_${n}" class="form-control pessoa">
-                            <option value="">REFERENCIAS</option>
+                        <select onblur="getSkuColors(this.value, ${n})" name="item[${n}][referencia]" id="referencia_id_${n}" class="form-control referencia">
+                            <option value="">Referência</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-2">
                     <div class="input-group">
-                        <select name="cor_id_${n}" id="cor_id_${n}" class="form-control pessoa">
-                            <option value="">COR</option>
+                        <select onblur="getPreco(document.getElementById('referencia_id_${n}').value, this.value, ${n})" name="item[${n}][cor]" id="cor_id_${n}" class="form-control cor">
+                            <option value="">Cor</option>
                         </select>
                     </div>
                 </div>
                 <div class="col">
                     <table>
                         <tr>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
-                            <td><input type="text" style="width: 30px"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_34]" id="item[${n}][numero_34]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_35]" id="item[${n}][numero_35]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_36]" id="item[${n}][numero_36]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_37]" id="item[${n}][numero_37]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_38]" id="item[${n}][numero_38]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_39]" id="item[${n}][numero_39]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_40]" id="item[${n}][numero_40]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_41]" id="item[${n}][numero_41]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_42]" id="item[${n}][numero_42]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_43]" id="item[${n}][numero_43]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_44]" id="item[${n}][numero_44]"></td>
+                            <td><input value="0" onblur="getTotalPairs(${n})" type="text" style="width: 30px" name="item[${n}][numero_45]" id="item[${n}][numero_45]"></td>
                         </tr>
                     </table>
                 </div>
                 <div class="col">
                     <div class="input-group">
-                        <input name="quantidade_item_${n}" type="text" class="form-control" id="quantidade_item_${n}" readonly>
+                        <input name="item[${n}][quantidade]" type="text" class="form-control" id="quantidade_item_${n}" readonly>
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group">
-                        <input name="preco_item_${n}" type="text" class="form-control" id="preco_item_${n}" required>
+                        <input name="item[${n}][preco]" type="text" class="form-control" id="preco_item_${n}" readonly>
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group">
-                        <input name="desconto_item_${n}" type="text" class="form-control" id="desconto_item_${n}" required>
+                        <input value="0" name="item[${n}][desconto]" type="text" class="form-control" id="desconto_item_${n}" required>
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group">
-                        <input name="total_item_${n} type="text" class="form-control" id="total_item_${n}" readonly>
+                        <input name="item[${n}][total]" type="text" class="form-control" id="total_item_${n}" readonly>
                     </div>
                 </div>
             </div>
@@ -306,4 +339,52 @@ function addItemRow() {
     ` 
     let element = document.getElementById("itens-pedido");
     element.appendChild(row);
+
+    getSkuSelectOption(n)
 }
+
+function getSkuSelectOption(selector) {
+
+    $.getJSON(`referencias/index`, (data) => {
+
+        for(let i = 0; i < data.length; i++) {
+            let options = `<option value = "${data[i].id}">${data[i].codigo}</option>`
+
+            $(`#referencia_id_${selector}`).append(options)
+        }
+    })
+}
+
+function getTotalPairs(n) {
+    let numero_34_row = parseInt(document.getElementById(`item[${n}][numero_34]`).value)
+    let numero_35_row = parseInt(document.getElementById(`item[${n}][numero_35]`).value)
+    let numero_36_row = parseInt(document.getElementById(`item[${n}][numero_36]`).value)
+    let numero_37_row = parseInt(document.getElementById(`item[${n}][numero_37]`).value)
+    let numero_38_row = parseInt(document.getElementById(`item[${n}][numero_38]`).value)
+    let numero_39_row = parseInt(document.getElementById(`item[${n}][numero_39]`).value)
+    let numero_40_row = parseInt(document.getElementById(`item[${n}][numero_40]`).value)
+    let numero_41_row = parseInt(document.getElementById(`item[${n}][numero_41]`).value)
+    let numero_42_row = parseInt(document.getElementById(`item[${n}][numero_42]`).value)
+    let numero_43_row = parseInt(document.getElementById(`item[${n}][numero_43]`).value)
+    let numero_44_row = parseInt(document.getElementById(`item[${n}][numero_44]`).value)
+    let numero_45_row = parseInt(document.getElementById(`item[${n}][numero_45]`).value)
+
+    let total = (
+        numero_34_row + numero_35_row + numero_36_row + numero_37_row + numero_38_row + numero_39_row + 
+        numero_40_row + numero_41_row + numero_42_row + numero_43_row + numero_44_row + numero_45_row
+    )
+
+    document.getElementById(`quantidade_item_${n}`).value = total
+}
+
+function getPreco(referencia_id, cor_id, n) {
+
+    $.getJSON(`skus/${referencia_id}/${cor_id}`, (data) => {
+        $(`#preco_item_${n}`).val(data.preco)
+    })
+}
+
+
+
+
+

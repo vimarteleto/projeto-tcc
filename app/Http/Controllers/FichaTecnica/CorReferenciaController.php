@@ -35,6 +35,12 @@ class CorReferenciaController extends Controller
         return $sku->toJson();  
     }
 
+    public function showByCorReferencia($referenciaId, $corId)
+    {
+        $sku = CorReferencia::where('referencia_id', $referenciaId)->where('cor_id', $corId)->first();
+        return $sku->toJson();  
+    }
+
     public function destroy(Request $request)
     {
         $sku = CorReferencia::find($request->id);

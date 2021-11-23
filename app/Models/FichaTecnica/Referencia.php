@@ -18,7 +18,7 @@ class Referencia extends Model
 
     public function cores()
     {
-        return $this->belongsToMany(Cor::class)->using(CorReferencia::class);
+        return $this->belongsToMany(Cor::class);
     }
 
 }

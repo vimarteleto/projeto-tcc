@@ -11,7 +11,7 @@ class ReferenciaController extends Controller
     
     public function index()
     {
-        $referencias = Referencia::where('status', 1)->get();
+        $referencias = Referencia::with('cores')->where('status', 1)->orderBy('codigo')->get();
         return $referencias->toJson();        
     }
 
@@ -30,7 +30,7 @@ class ReferenciaController extends Controller
 
     public function show($id)
     {
-        $referencia = Referencia::with('linha')->find($id);
+        $referencia = Referencia::with('linha')->with('cores')->find($id);
         return $referencia->toJson();  
     }
 

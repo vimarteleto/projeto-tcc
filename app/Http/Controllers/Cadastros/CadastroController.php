@@ -9,9 +9,13 @@ use Illuminate\Http\Request;
 class CadastroController extends Controller
 {
     
-    public function index()
+    public function index($type = null)
     {
-        $cadastros = Cadastros::all();
+        if(is_null($type)) {
+            $cadastros = Cadastros::all();
+        } else {
+            $cadastros = Cadastros::where('tipo', $type)->get();
+        }
         return $cadastros->toJson();        
     }
 
@@ -30,7 +34,7 @@ class CadastroController extends Controller
 
     public function show($id)
     {
-        $cadastro = Cadastros::with('material')->find($id);
+        $cadastro = Cadastros::find($id);
         return $cadastro->toJson();  
     }
 

@@ -302,6 +302,8 @@
                                         <select name="tipo" id="tipo-edit" class="form-control tipo">
                                             <option value="C">Cliente</option>
                                             <option value="F">Fornecedor</option>
+                                            <option value="R">Representante</option>
+                                            <option value="T">Transportador</option>
                                             <option value="O">Outros</option>
                                         </select>
                                     </div>

@@ -81,7 +81,7 @@ Route::get('/referencias/excluir', [ReferenciaController::class, 'destroy']);
 Route::get('/referencias/{id}', [ReferenciaController::class, 'show']);
 Route::post('/referencias/status/{id}', [ReferenciaController::class, 'status']);
 
-// referencias
+// cores
 Route::get('/cores', [CorController::class, 'view']);
 Route::get('/cores/index', [CorController::class, 'index']); 
 Route::post('/cores', [CorController::class, 'store']); 
@@ -98,6 +98,7 @@ Route::get('/skus/excluir', [CorReferenciaController::class, 'destroy']);
 Route::post('/skus/status/{id}', [CorReferenciaController::class, 'status']);
 Route::post('/skus/duplicate', [CorReferenciaController::class, 'duplicate']);
 Route::get('/skus/{id}', [CorReferenciaController::class, 'show']);
+Route::get('/skus/{referencia_id}/{cor_id}', [CorReferenciaController::class, 'showByCorReferencia']);
 
 // fichas
 Route::get('/fichas/{id}', [FichaController::class, 'view']);
@@ -111,7 +112,7 @@ Route::post('/fichas/status/{id}', [FichaController::class, 'status']);
 
 // cadastros
 Route::get('/cadastros', [CadastroController::class, 'view']);
-Route::get('/cadastros/index', [CadastroController::class, 'index']); 
+Route::get('/cadastros/index/{type?}', [CadastroController::class, 'index']); 
 Route::post('/cadastros', [CadastroController::class, 'store']); 
 Route::put('/cadastros', [CadastroController::class, 'store']); 
 Route::get('/cadastros/cadastros/excluir', [CadastroController::class, 'destroy']);
