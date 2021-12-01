@@ -27,7 +27,7 @@
                 <div class="card border border-danger">
                     <div class="card-body">
                         <h5 class="card-title">Produtos</h5>
-                        <a href="/skus" class="btn btn-primary btn-danger">Fichas Técnincas</a><br>
+                        <a href="/skus" class="btn btn-primary btn-danger">Fichas Técnicas</a><br>
                         <a href="/referencias" class="btn btn-primary btn-danger">Referências</a><br>
                         <a href="/linhas" class="btn btn-primary btn-danger">Linhas</a><br>
                         <a href="/cores" class="btn btn-primary btn-danger">Cores</a><br>

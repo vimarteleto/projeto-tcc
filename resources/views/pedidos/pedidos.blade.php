@@ -12,6 +12,7 @@
                             <th>Número</th>
                             <th>Cliente</th>
                             <th>Situação</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>            
@@ -19,8 +20,13 @@
                         @foreach($pedidos as $pedido)
                             <tr>
                                 <td>{{$pedido->id}}</td>
-                                <td>{{$pedido->cliente->nome}}</td>
-                                <td>{{$pedido->situacao}}</td>
+                                <td>{{$pedido->cliente[0]->nome}}</td>
+                                <td>
+                                    {{
+                                        $pedido->situacao == 'N' ? 'Não planejado' :
+                                        ($pedido->situacao == 'P' ? 'Planejado' : 'Concluído')
+                                    }} 
+                                </td>
 
                                 <td>
                                     <a class="btn btn-sm btn-primary btn-modal-edit" 
@@ -31,6 +37,23 @@
                                     >
                                        Detalhes
                                    </a>
+                                   <a  class="btn btn-sm btn-danger" 
+                                        data-toggle="modal" 
+                                        data-target="#modal-delete"
+                                        data-id={{$pedido->id}}
+                                        data-route="pedidos"
+                                        onclick=deleteModal(this)
+                                    >
+                                        Excluir
+                                    </a>
+                                    <a  class="btn btn-sm btn-dark" 
+                                        data-toggle="modal" 
+                                        data-target="#modal-materiais"
+                                        data-id={{$pedido->id}}
+                                        onclick=explosionDetails(this)
+                                    >
+                                        Materiais
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -78,7 +101,7 @@
                                 <div class="col">
                                     <label for="pedido_cliente" class="form-check-label">Pedido do cliente</label>
                                     <div class="input-group">
-                                        <input name="pedido_cliente" type="text" class="form-control" id="pedido_cliente" required>
+                                        <input name="pedido_cliente" type="text" class="form-control" id="pedido_cliente">
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +362,7 @@
             <div class="modal-content" style="background-color:white">
             <form action="pedidos/excluir" class="form-horizontal">
             <div class="modal-header">
-                <h5 class="modal-delete-title"></h5>
+                <h5 class="modal-delete-title-pedidos">Exclusão de pedido</h5>
             </div>          
 
             <div class="modal-body modal-delete">                
@@ -351,6 +374,29 @@
                 <button class="btn btn-sm btn-danger">Excluir</button>
             </div>
             </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal de consumo --}}
+    <div class="modal fade" id="modal-materiais" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="background-color:white">
+                <div class="modal-header">
+                    <h5 class="card-title-pedido"></h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-sm table-ordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Material</th>
+                                <th>Consumo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="explosion-table">            
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

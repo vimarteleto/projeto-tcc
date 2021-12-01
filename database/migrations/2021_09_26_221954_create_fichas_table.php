@@ -16,7 +16,7 @@ class CreateFichasTable extends Migration
         Schema::create('fichas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('material_id');
-            $table->decimal('consumo');
+            $table->float('consumo');
             $table->unsignedBigInteger('cor_referencia_id');
 
             $table->foreign('material_id')->references('id')->on('materiais')->onUpdate('cascade');

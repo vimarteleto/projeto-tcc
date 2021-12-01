@@ -172,6 +172,28 @@ function getEditOptions(e) {
 
 }
 
+function explosionDetails(e) {
+    $('#explosion-table').empty()
+    let id = e.getAttribute('data-id')
+    $.getJSON(`pedidos/explosao/${id}`, (data) => {
+        console.log(data)
+
+        $('.card-title-pedido').text(`Consumo de materiais do pedido ${id}`)
+
+        for(let i = 0; i < data.length; i++) {
+
+            let materials = `
+            <tr>
+                <td>${data[i].material}</td>
+                <td>${data[i].consumo}</td>
+            </tr>`
+
+            $('#explosion-table').append(materials)
+        }
+
+    })
+}
+
 
 function deleteModal(e) {
     
@@ -384,7 +406,8 @@ function getPreco(referencia_id, cor_id, n) {
     })
 }
 
-
-
-
+// TODO
+// VALOR TOTAL COM DESCONTO
+// TOTAL PARES GERAL
+// VALOR TOTAL GERAL
 

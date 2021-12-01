@@ -14,7 +14,7 @@ class Pedido extends Model
 
     public function cliente()
     {
-        return $this->hasMany(Cadastros::class);
+        return $this->hasMany(Cadastros::class, 'id', 'cliente_id');
     }
 
 }

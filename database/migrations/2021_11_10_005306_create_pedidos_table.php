@@ -20,14 +20,14 @@ class CreatePedidosTable extends Migration
             $table->string('representante_id');
             $table->string('marca')->default('Guilder');
             $table->string('data_entrega');
-            $table->string('condicao_pagamento');
+            $table->string('condicao_pagamento')->nullable();
             $table->string('transportador_id');
             $table->string('frete', 3); // CIF ou FOB
             $table->integer('volumes')->nullable();
-            $table->float('peso_liquido'); // vem da referencia
-            $table->float('peso_bruto'); // somar com peso do volume
-            $table->string('situacao', 1); // nao-planejado, planejado, concluido
-            $table->string('observacoes');
+            $table->float('peso_liquido')->nullable(); // vem da referencia
+            $table->float('peso_bruto')->nullable(); // somar com peso do volume
+            $table->string('situacao', 1)->default('N'); // nao-planejado, planejado, concluido
+            $table->string('observacoes')->nullable();
             $table->timestamps();
 
             $table->foreign('cliente_id')->references('id')->on('cadastros')->onUpdate('cascade')->onDelete('cascade');
