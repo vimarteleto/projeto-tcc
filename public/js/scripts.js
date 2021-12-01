@@ -410,4 +410,5 @@ function getPreco(referencia_id, cor_id, n) {
 // VALOR TOTAL COM DESCONTO
 // TOTAL PARES GERAL
 // VALOR TOTAL GERAL
+// DETALHES PEDIDO
 

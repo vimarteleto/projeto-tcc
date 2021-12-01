@@ -38,7 +38,7 @@
                 <div class="card border border-success">
                     <div class="card-body">
                         <h5 class="card-title">Planejamento</h5>
-                        <a href="/#" class="btn btn-primary btn-success">Planos</a><br>
+                        {{-- <a href="/#" class="btn btn-primary btn-success">Planos</a><br> --}}
                         <a href="/pedidos" class="btn btn-primary btn-success">Pedidos</a><br>
                         <a href="/cadastros" class="btn btn-primary btn-success">Cadastros</a><br>
                     </div>
